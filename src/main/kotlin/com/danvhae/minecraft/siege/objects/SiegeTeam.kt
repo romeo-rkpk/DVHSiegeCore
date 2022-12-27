@@ -1,11 +1,14 @@
 package com.danvhae.minecraft.siege.objects
 
 import com.danvhae.minecraft.siege.enums.SiegeCastleStatus
+import com.danvhae.minecraft.siege.utils.FileUtil
+import com.google.gson.GsonBuilder
 import java.util.*
 
 class SiegeTeam(val name:String, val leader: SiegePlayer){
 
     private val players = HashMap<UUID, SiegePlayer>()
+
     fun players():List<SiegePlayer>{
         val list = ArrayList<SiegePlayer>()
         val keys = players.keys
@@ -33,5 +36,27 @@ class SiegeTeam(val name:String, val leader: SiegePlayer){
                 temp.add(castle)
         }
         return temp.toList()
+    }
+
+    class DAO(val team:String, val leader:String){
+
+        constructor(team:SiegeTeam):this(team.name, team.leader.playerUUID.toString())
+
+        companion object{
+            private const val FILE_NAME = "teams.json"
+        }
+
+        fun save(teams:Array<SiegeTeam>){
+            val list = ArrayList<DAO>()
+            for(team in teams)
+                list.add(DAO(team))
+            val gson = GsonBuilder().setPrettyPrinting().create()
+            val json = gson.toJson(list.toTypedArray())
+            FileUtil.writeTextFile(json, FILE_NAME)
+        }
+
+        fun load():Array<SiegeTeam>{
+            TODO("WIP")
+        }
     }
 }
