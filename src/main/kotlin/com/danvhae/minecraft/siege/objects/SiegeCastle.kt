@@ -27,6 +27,14 @@ class SiegeCastle(val id:String, val name:String, status:SiegeCastleStatus, owne
 
     //저거 둘은 나중에 이벤트 호출 할 예정
 
+    /**
+     * 별의 주인을 가리키는 플레이어 객체를 가져옵니다.
+     * 팀 데이터가 완전하지 않은 경우 치명적인 오류를 발생시킬 수 있습니다.
+     */
+    fun ownerPlayer():SiegePlayer{
+        return SiegePlayer.DATA[owner]!!
+    }
+
     companion object{
         val DATA = HashMap<String, SiegeCastle>()
 
