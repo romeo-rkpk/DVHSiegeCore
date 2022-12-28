@@ -9,6 +9,20 @@ import java.util.*
 class SiegeTeam(val name:String, val leaderUUID:UUID, var remark:String = ""){
 
 
+    companion object{
+        private val DATA = HashMap<String, SiegeTeam>()
+        fun save(){
+            DAO.save(DATA.values.toTypedArray())
+        }
+
+        fun load(){
+            DATA.clear()
+            val array = DAO.load()
+            for(team in array){
+                DATA[team.name] = team
+            }
+        }
+    }
 
     private val players = HashMap<UUID, SiegePlayer>()
 
@@ -55,27 +69,26 @@ class SiegeTeam(val name:String, val leaderUUID:UUID, var remark:String = ""){
 
         companion object{
             private const val FILE_NAME = "teams.json"
-        }
+            fun save(teams:Array<SiegeTeam>){
+                val list = ArrayList<DAO>()
+                for(team in teams)
+                    list.add(DAO(team))
+                val gson = GsonBuilder().setPrettyPrinting().create()
+                val json = gson.toJson(list.toTypedArray())
+                FileUtil.writeTextFile(json, FILE_NAME)
+            }
 
-        fun save(teams:Array<SiegeTeam>){
-            val list = ArrayList<DAO>()
-            for(team in teams)
-                list.add(DAO(team))
-            val gson = GsonBuilder().setPrettyPrinting().create()
-            val json = gson.toJson(list.toTypedArray())
-            FileUtil.writeTextFile(json, FILE_NAME)
-        }
+            fun load():Array<SiegeTeam>{
+                val gson = Gson()
+                val json = FileUtil.readTextFile(FILE_NAME)
+                val arr = gson.fromJson(json, Array<DAO>::class.java)
 
-        fun load():Array<SiegeTeam>{
-            val gson = Gson()
-            val json = FileUtil.readTextFile(FILE_NAME)
-            val arr = gson.fromJson(json, Array<DAO>::class.java)
+                val result = ArrayList<SiegeTeam>()
+                for(e in arr)
+                    result.add(SiegeTeam(e.name, UUID.fromString(e.leaderUUID), e.remark))
 
-            val result = ArrayList<SiegeTeam>()
-            for(e in arr)
-                result.add(SiegeTeam(e.name, UUID.fromString(e.leaderUUID), e.remark))
-
-            return result.toTypedArray()
+                return result.toTypedArray()
+            }
         }
     }
 }
