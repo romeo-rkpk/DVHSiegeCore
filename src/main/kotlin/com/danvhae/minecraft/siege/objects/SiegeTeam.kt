@@ -12,7 +12,7 @@ import java.util.*
  * @property leaderUUID 팀의 우두머리 플레이어의 UUID입니다
  * @property remark 운영 측에서 남긴 메모입니다.
  */
-class SiegeTeam(val name:String, val leaderUUID:UUID, var remark:String = ""){
+class SiegeTeam(val name:String, val leaderUUID:UUID, val colorPrefix:String = "&f", var remark:String = ""){
 
 
     companion object{
@@ -80,9 +80,9 @@ class SiegeTeam(val name:String, val leaderUUID:UUID, var remark:String = ""){
         return temp.toList()
     }
 
-    private class DAO(val name:String, val leaderUUID:String, val remark: String){
+    private class DAO(val name:String, val leaderUUID:String, val colorPrefix: String, val remark: String){
 
-        constructor(team:SiegeTeam):this(team.name, team.leaderUUID.toString(), team.remark)
+        constructor(team:SiegeTeam):this(team.name, team.leaderUUID.toString(), team.colorPrefix, team.remark)
 
         companion object{
             private const val FILE_NAME = "teams.json"
@@ -102,7 +102,7 @@ class SiegeTeam(val name:String, val leaderUUID:UUID, var remark:String = ""){
 
                 val result = ArrayList<SiegeTeam>()
                 for(e in arr)
-                    result.add(SiegeTeam(e.name, UUID.fromString(e.leaderUUID), e.remark))
+                    result.add(SiegeTeam(e.name, UUID.fromString(e.leaderUUID), e.colorPrefix, e.remark))
 
                 return result.toTypedArray()
             }
