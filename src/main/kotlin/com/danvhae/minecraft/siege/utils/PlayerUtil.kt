@@ -1,5 +1,6 @@
 package com.danvhae.minecraft.siege.utils
 
+import com.danvhae.minecraft.siege.DVHSiegeCore
 import com.danvhae.minecraft.siege.objects.SiegeCastle
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin
 import org.bukkit.Location
@@ -15,7 +16,7 @@ class PlayerUtil {
             if(player.health <= 0)return result
             for(region in set.regions?:return result)
                 result.add(region.id)
-            if(isDistressZone(player.location))result.add("#DISTRESS")
+            if(isDistressZone(player.location))result.add(DVHSiegeCore.DISTRESS_ZONE_ID)
             return result
         }
 

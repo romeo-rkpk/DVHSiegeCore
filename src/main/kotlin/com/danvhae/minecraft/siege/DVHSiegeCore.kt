@@ -8,6 +8,7 @@ class DVHSiegeCore : JavaPlugin() {
 
     companion object{
         const val FOLDER_PATH = "plugins/DVHsiege"
+        const val DISTRESS_ZONE_ID = "#DISTRESS"
     }
     private var instance:DVHSiegeCore? = null
         get() {return field!!}
