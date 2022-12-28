@@ -10,17 +10,17 @@ import org.bukkit.Location
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, owner: UUID?,
+class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, team:String?,
                   var attackPosition:Location, var workPosition:Location, var worldGuardID:String){
 
     var status: SiegeCastleStatus = status
         set(value) {
             val temp = field
             field = value
-            Bukkit.getPluginManager().callEvent(CastleDataChangedEvent(id, temp, field, owner, owner))
+            Bukkit.getPluginManager().callEvent(CastleDataChangedEvent(id, temp, field, team, team))
             save()
         }
-    var owner: UUID? = owner
+    var team: String? = team
         set(value) {
             val temp = field
             field = value
@@ -30,12 +30,8 @@ class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, own
 
     //저거 둘은 나중에 이벤트 호출 할 예정
 
-    /**
-     * 별의 주인을 가리키는 플레이어 객체를 가져옵니다.
-     * 팀 데이터가 완전하지 않은 경우 치명적인 오류를 발생시킬 수 있습니다.
-     */
-    fun ownerPlayer(): SiegePlayer {
-        return SiegePlayer.DATA[owner]!!
+    fun ownerPlayer(): SiegePlayer? {
+        return SiegeTeam.DATA[team]?.leaderUUID?.let { SiegePlayer.DATA[it] }
     }
 
     companion object{
@@ -57,7 +53,7 @@ class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, own
                       val attackPosition: LocationData, val workPosition: LocationData, val worldGuardID: String){
 
         constructor(castle: SiegeCastle):this(castle.id, castle.name, castle.status,
-            castle.owner?.let {castle.ownerPlayer().team} ,
+            castle.team ,
             LocationData(castle.attackPosition),
             LocationData(castle.workPosition), castle.worldGuardID
         )
@@ -84,8 +80,8 @@ class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, own
                     //list.add(SiegeCastle(dao.id, dao.name, dao.status,))
                     //Bukkit.getLogger().info("${dao.attackPosition}")
                     list.add(SiegeCastle(dao.id, dao.name, dao.status,
-                        dao.team?.let { SiegeTeam.DATA[it]?.leaderUUID}
-                        , dao.attackPosition.toLocation()?:continue, dao.workPosition.toLocation()?:continue, dao.worldGuardID))
+                        dao.team, dao.attackPosition.toLocation()?:continue,
+                        dao.workPosition.toLocation()?:continue, dao.worldGuardID))
                     Bukkit.getLogger().info("${dao.name} 데이터 로드 완료")
                 }
 

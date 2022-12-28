@@ -60,7 +60,7 @@ class SiegeTeam(val name:String, val leaderUUID:UUID, val colorPrefix:String = "
         val arrList = ArrayList<SiegeCastle>()
         for(castleID in castleIDs){
             val castle = SiegeCastle.DATA[castleID]?:continue
-            if(castle.owner == leaderUUID)arrList.add(castle)
+            if(castle.team == name)arrList.add(castle)
         }
 
         return arrList.toList()
