@@ -4,7 +4,8 @@ import com.danvhae.minecraft.siege.core.utils.FileUtil
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
-class MasterConfig(var period:Boolean = false, var sirius:Boolean = false, var wildWorldName:String = "world") {
+class MasterConfig(var period:Boolean = false, var sirius:Boolean = false, var wildWorldName:String = "world",
+                   var meetingRoom:LocationData = LocationData("spawn", 135.5, 105.5, 221.5)) {
     companion object{
         private const val FILE_NAME = "master.json"
 
