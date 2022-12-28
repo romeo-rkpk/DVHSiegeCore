@@ -22,6 +22,13 @@ class SiegePlayer(val playerUUID:UUID, var team: String, var isOwner:Boolean, va
         }
     }
 
+    /**
+     * 이 플레이어의 팀 객체를 바로 가져옵니다.
+     */
+    fun getTeam():SiegeTeam?{
+        return SiegeTeam.DATA[team]
+    }
+
     private class DAO(val playerUUID:String, val team: String, val isOwner: Boolean, val alias: String?){
         constructor(siegePlayer: SiegePlayer):this(siegePlayer.playerUUID.toString(), siegePlayer.team,
             siegePlayer.isOwner, siegePlayer.alias)
