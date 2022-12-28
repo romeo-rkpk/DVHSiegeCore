@@ -7,6 +7,7 @@ import com.danvhae.minecraft.siege.core.objects.SiegeTeam
 import com.danvhae.minecraft.siege.core.listeners.PlayerEnterRegionListener
 import com.danvhae.minecraft.siege.core.listeners.PlayerLeaveRegionListener
 import com.danvhae.minecraft.siege.core.listeners.PlayerMoveRegionListener
+import com.danvhae.minecraft.siege.core.objects.MasterConfig
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -15,6 +16,9 @@ class DVHSiegeCore : JavaPlugin() {
     companion object{
         const val FOLDER_PATH = "plugins/DVHsiege"
         const val DISTRESS_ZONE_ID = "#DISTRESS"
+        var masterConfig:MasterConfig = MasterConfig()
+            private set
+
     }
     private var instance: DVHSiegeCore? = null
         get() {return field!!}
@@ -32,5 +36,8 @@ class DVHSiegeCore : JavaPlugin() {
         SiegeCastle.load()
         SiegePlayer.load()
         SiegeTeam.load()
+
+        masterConfig = MasterConfig.load()
+
     }
 }
