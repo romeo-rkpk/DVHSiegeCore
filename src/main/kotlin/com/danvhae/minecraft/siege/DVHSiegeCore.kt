@@ -1,5 +1,7 @@
 package com.danvhae.minecraft.siege
 
+import com.danvhae.minecraft.siege.listeners.PlayerEnterRegionListener
+import com.danvhae.minecraft.siege.listeners.PlayerLeaveRegionListener
 import com.danvhae.minecraft.siege.listeners.PlayerMoveRegionListener
 import com.danvhae.minecraft.siege.utils.FileUtil
 import org.bukkit.Bukkit
@@ -21,5 +23,7 @@ class DVHSiegeCore : JavaPlugin() {
 
         val pm = Bukkit.getPluginManager()
         pm.registerEvents(PlayerMoveRegionListener(), this)
+        pm.registerEvents(PlayerEnterRegionListener(), this)
+        pm.registerEvents(PlayerLeaveRegionListener(), this)
     }
 }
