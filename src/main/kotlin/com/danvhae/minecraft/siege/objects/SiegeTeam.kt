@@ -6,7 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.util.*
 
-class SiegeTeam(val name:String, val leaderUUID:UUID){
+class SiegeTeam(val name:String, val leaderUUID:UUID, var remark:String = ""){
 
 
 
@@ -49,9 +49,9 @@ class SiegeTeam(val name:String, val leaderUUID:UUID){
         return temp.toList()
     }
 
-    private class DAO(val name:String, val leaderUUID:String){
+    private class DAO(val name:String, val leaderUUID:String, val remark: String){
 
-        constructor(team:SiegeTeam):this(team.name, team.leaderUUID.toString())
+        constructor(team:SiegeTeam):this(team.name, team.leaderUUID.toString(), team.remark)
 
         companion object{
             private const val FILE_NAME = "teams.json"
@@ -73,7 +73,7 @@ class SiegeTeam(val name:String, val leaderUUID:UUID){
 
             val result = ArrayList<SiegeTeam>()
             for(e in arr)
-                result.add(SiegeTeam(e.name, UUID.fromString(e.leaderUUID)))
+                result.add(SiegeTeam(e.name, UUID.fromString(e.leaderUUID), e.remark))
 
             return result.toTypedArray()
         }
