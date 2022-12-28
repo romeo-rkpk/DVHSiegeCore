@@ -8,7 +8,7 @@ import java.util.UUID
 class SiegePlayer(val playerUUID:UUID, var team: String, var isOwner:Boolean, val alias:String?) {
 
     companion object{
-        private val DATA = HashMap<UUID, SiegePlayer>()
+        val DATA = HashMap<UUID, SiegePlayer>()
 
         fun load(){
             DATA.clear()

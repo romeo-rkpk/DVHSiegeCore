@@ -10,7 +10,7 @@ class SiegeTeam(val name:String, val leaderUUID:UUID, var remark:String = ""){
 
 
     companion object{
-        private val DATA = HashMap<String, SiegeTeam>()
+        val DATA = HashMap<String, SiegeTeam>()
         fun save(){
             DAO.save(DATA.values.toTypedArray())
         }
