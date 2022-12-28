@@ -11,6 +11,10 @@ import kotlin.collections.ArrayList
 class SiegeCastle(val id:String, val name:String, var status:SiegeCastleStatus, var owner: UUID?,
                   var attackPosition:Location, var workPosition:Location, var worldGuardID:String){
 
+    companion object{
+        val DATA = HashMap<String, SiegeCastle>()
+    }
+
     private class DAO(val id:String, val name:String, val status:SiegeCastleStatus, val owner:String?,
                       val attackPosition: LocationData, val workPosition: LocationData, val worldGuardID: String){
 
