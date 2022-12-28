@@ -1,5 +1,7 @@
 package com.danvhae.minecraft.siege.listeners
 
+import com.danvhae.minecraft.siege.DVHSiegeCore
+import com.danvhae.minecraft.siege.events.DistressEndEvent
 import com.danvhae.minecraft.siege.events.LeaveRegionEvent
 import com.danvhae.minecraft.siege.objects.SiegeCastle
 import org.bukkit.Bukkit
@@ -14,5 +16,11 @@ class PlayerLeaveRegionListener : Listener {
             if(castle.worldGuardID != event.id)continue
             Bukkit.getPluginManager().callEvent(LeaveRegionEvent(castle.id, event.player))
         }
+    }
+
+    @EventHandler
+    fun onLeaveDistressRegion(event:LeaveRegionEvent){
+        if(event.id != DVHSiegeCore.DISTRESS_ZONE_ID)return
+        Bukkit.getPluginManager().callEvent(DistressEndEvent(event.player))
     }
 }

@@ -1,5 +1,7 @@
 package com.danvhae.minecraft.siege.listeners
 
+import com.danvhae.minecraft.siege.DVHSiegeCore
+import com.danvhae.minecraft.siege.events.DistressStartEvent
 import com.danvhae.minecraft.siege.events.EnterCastleEvent
 import com.danvhae.minecraft.siege.events.EnterRegionEvent
 import com.danvhae.minecraft.siege.objects.SiegeCastle
@@ -14,5 +16,11 @@ class PlayerEnterRegionListener : Listener {
             if(event.id != castle.worldGuardID)continue
             Bukkit.getPluginManager().callEvent(EnterCastleEvent(castle.id, event.player))
         }
+    }
+
+    @EventHandler
+    fun onEnterDistressRegion(event:EnterRegionEvent){
+        if(event.id != DVHSiegeCore.DISTRESS_ZONE_ID)return
+        Bukkit.getPluginManager().callEvent(DistressStartEvent(event.player))
     }
 }

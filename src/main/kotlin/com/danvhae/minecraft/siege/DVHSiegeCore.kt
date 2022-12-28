@@ -3,6 +3,9 @@ package com.danvhae.minecraft.siege
 import com.danvhae.minecraft.siege.listeners.PlayerEnterRegionListener
 import com.danvhae.minecraft.siege.listeners.PlayerLeaveRegionListener
 import com.danvhae.minecraft.siege.listeners.PlayerMoveRegionListener
+import com.danvhae.minecraft.siege.objects.SiegeCastle
+import com.danvhae.minecraft.siege.objects.SiegePlayer
+import com.danvhae.minecraft.siege.objects.SiegeTeam
 import com.danvhae.minecraft.siege.utils.FileUtil
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -25,5 +28,9 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(PlayerMoveRegionListener(), this)
         pm.registerEvents(PlayerEnterRegionListener(), this)
         pm.registerEvents(PlayerLeaveRegionListener(), this)
+
+        SiegeCastle.load()
+        SiegePlayer.load()
+        SiegeTeam.load()
     }
 }

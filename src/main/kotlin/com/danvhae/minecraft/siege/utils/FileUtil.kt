@@ -32,7 +32,7 @@ class FileUtil {
         }
 
         fun fromBytes(bytes:ByteArray):Any?{
-            bytes?:return null
+            //bytes
             val bais = ByteArrayInputStream(bytes)
             return try{
                 val bois = BukkitObjectInputStream(bais)

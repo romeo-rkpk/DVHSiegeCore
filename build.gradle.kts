@@ -35,6 +35,14 @@ dependencies {
 
 }
 
+
+tasks.withType<ProcessResources>{
+    filteringCharset = "UTF-8"
+    filesMatching("plugin.yml"){
+        expand(project.properties)
+    }
+}
+
 tasks.test {
     useJUnitPlatform()
 }

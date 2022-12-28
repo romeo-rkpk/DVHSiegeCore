@@ -4,6 +4,7 @@ import com.danvhae.minecraft.siege.enums.SiegeCastleStatus
 import com.danvhae.minecraft.siege.utils.FileUtil
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import java.util.*
 import kotlin.collections.ArrayList
@@ -67,10 +68,13 @@ class SiegeCastle(val id:String, val name:String, status:SiegeCastleStatus, owne
                 val arr = gson.fromJson(json, Array<DAO>::class.java)
                 val list = ArrayList<SiegeCastle>()
                 for(dao in arr){
+                    Bukkit.getLogger().info("${dao.id} 데이터 로드 중")
                     //list.add(SiegeCastle(dao.id, dao.name, dao.status,))
+                    //Bukkit.getLogger().info("${dao.attackPosition}")
                     list.add(SiegeCastle(dao.id, dao.name, dao.status,
                         (dao.owner).let { if(it != null)UUID.fromString(it)else null }
-                        , dao.attackPosition.toLocation()!!, dao.workPosition.toLocation()!!, dao.worldGuardID))
+                        , dao.attackPosition.toLocation()?:continue, dao.workPosition.toLocation()?:continue, dao.worldGuardID))
+                    Bukkit.getLogger().info("${dao.name} 데이터 로드 완료")
                 }
 
                 return list.toTypedArray()

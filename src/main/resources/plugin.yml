@@ -1,10 +1,12 @@
 name: DVHSiegeCore
-version: $version
+version: '$version'
 main: com.danvhae.minecraft.siege.DVHSiegeCore
 api-version: 1.12.2
 authors: [해야, 보라비, 단츄, 만현덕, 로미오는줄리엣]
 description: 꿈뻑 공성전 콘텐츠 데이터 등 핵심 제어 플러그인
 website: https://cafe.naver.com
+
+depend: [WorldEdit, WorldGuard]
 
 permissions:
   siegecontrol.support:
