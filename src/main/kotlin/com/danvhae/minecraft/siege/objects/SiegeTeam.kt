@@ -2,12 +2,16 @@ package com.danvhae.minecraft.siege.objects
 
 import com.danvhae.minecraft.siege.enums.SiegeCastleStatus
 import com.danvhae.minecraft.siege.utils.FileUtil
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.util.*
 
-class SiegeTeam(val name:String, val leader: SiegePlayer){
+class SiegeTeam(val name:String, val leaderUUID:UUID){
+
+
 
     private val players = HashMap<UUID, SiegePlayer>()
+
 
     fun players():List<SiegePlayer>{
         val list = ArrayList<SiegePlayer>()
@@ -38,9 +42,9 @@ class SiegeTeam(val name:String, val leader: SiegePlayer){
         return temp.toList()
     }
 
-    class DAO(val team:String, val leader:String){
+    private class DAO(val name:String, val leaderUUID:String){
 
-        constructor(team:SiegeTeam):this(team.name, team.leader.playerUUID.toString())
+        constructor(team:SiegeTeam):this(team.name, team.leaderUUID.toString())
 
         companion object{
             private const val FILE_NAME = "teams.json"
@@ -56,7 +60,15 @@ class SiegeTeam(val name:String, val leader: SiegePlayer){
         }
 
         fun load():Array<SiegeTeam>{
-            TODO("WIP")
+            val gson = Gson()
+            val json = FileUtil.readTextFile(FILE_NAME)
+            val arr = gson.fromJson(json, Array<DAO>::class.java)
+
+            val result = ArrayList<SiegeTeam>()
+            for(e in arr)
+                result.add(SiegeTeam(e.name, UUID.fromString(e.leaderUUID)))
+
+            return result.toTypedArray()
         }
     }
 }
