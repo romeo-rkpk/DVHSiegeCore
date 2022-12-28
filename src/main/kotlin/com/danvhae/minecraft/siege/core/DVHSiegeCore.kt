@@ -19,9 +19,12 @@ class DVHSiegeCore : JavaPlugin() {
         var masterConfig:MasterConfig = MasterConfig()
             private set
 
+        var instance: DVHSiegeCore? = null
+            get() {return field!!}
+            private set
+
     }
-    private var instance: DVHSiegeCore? = null
-        get() {return field!!}
+
 
     override fun onEnable() {
         instance = this
