@@ -29,7 +29,14 @@ class SiegeTeam(val name:String, val leaderUUID:UUID){
     }
 
     fun castles():List<SiegeCastle>{
-        TODO("WIP")
+        val castleIDs = SiegeCastle.DATA.keys
+        val arrList = ArrayList<SiegeCastle>()
+        for(castleID in castleIDs){
+            val castle = SiegeCastle.DATA[castleID]?:continue
+            if(castle.owner == leaderUUID)arrList.add(castle)
+        }
+
+        return arrList.toList()
     }
     fun aliveCastle():List<SiegeCastle>{
         val temp = ArrayList<SiegeCastle>()
