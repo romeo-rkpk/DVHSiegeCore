@@ -53,10 +53,11 @@ class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, own
         }
     }
 
-    private class DAO(val id:String, val name:String, val status: SiegeCastleStatus, val owner:String?,
+    private class DAO(val id:String, val name:String, val status: SiegeCastleStatus, val team:String?,
                       val attackPosition: LocationData, val workPosition: LocationData, val worldGuardID: String){
 
-        constructor(castle: SiegeCastle):this(castle.id, castle.name, castle.status, castle.owner?.toString(),
+        constructor(castle: SiegeCastle):this(castle.id, castle.name, castle.status,
+            castle.owner?.let {castle.ownerPlayer().team} ,
             LocationData(castle.attackPosition),
             LocationData(castle.workPosition), castle.worldGuardID
         )
@@ -83,7 +84,7 @@ class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, own
                     //list.add(SiegeCastle(dao.id, dao.name, dao.status,))
                     //Bukkit.getLogger().info("${dao.attackPosition}")
                     list.add(SiegeCastle(dao.id, dao.name, dao.status,
-                        (dao.owner).let { if(it != null)UUID.fromString(it)else null }
+                        dao.team?.let { SiegeTeam.DATA[it]?.leaderUUID}
                         , dao.attackPosition.toLocation()?:continue, dao.workPosition.toLocation()?:continue, dao.worldGuardID))
                     Bukkit.getLogger().info("${dao.name} 데이터 로드 완료")
                 }
