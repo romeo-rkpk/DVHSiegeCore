@@ -8,8 +8,19 @@ import org.bukkit.Location
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SiegeCastle(val id:String, val name:String, var status:SiegeCastleStatus, var owner: UUID?,
+class SiegeCastle(val id:String, val name:String, status:SiegeCastleStatus, owner: UUID?,
                   var attackPosition:Location, var workPosition:Location, var worldGuardID:String){
+
+    var status:SiegeCastleStatus = status
+        set(value) {
+            field = value
+        }
+    var owner: UUID? = owner
+        set(value) {
+            field = value
+        }
+
+    //저거 둘은 나중에 이벤트 호출 할 예정
 
     companion object{
         val DATA = HashMap<String, SiegeCastle>()
