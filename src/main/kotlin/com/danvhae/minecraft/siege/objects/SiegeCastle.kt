@@ -14,16 +14,31 @@ class SiegeCastle(val id:String, val name:String, status:SiegeCastleStatus, owne
     var status:SiegeCastleStatus = status
         set(value) {
             field = value
+
+            save()
         }
     var owner: UUID? = owner
         set(value) {
             field = value
+
+            save()
         }
 
     //저거 둘은 나중에 이벤트 호출 할 예정
 
     companion object{
         val DATA = HashMap<String, SiegeCastle>()
+
+        fun save(){
+            DAO.save(DATA.values.toTypedArray())
+        }
+
+        fun load(){
+            DATA.clear()
+            val castles = DAO.load()
+            for(castle in castles)
+                DATA[castle.id] = castle
+        }
     }
 
     private class DAO(val id:String, val name:String, val status:SiegeCastleStatus, val owner:String?,
