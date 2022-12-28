@@ -6,15 +6,31 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.util.*
 
+/**
+ * 공성전에서의 한 팀을 의미합니다.
+ * @property name 팀의 이름이자 ID입니다.
+ * @property leaderUUID 팀의 우두머리 플레이어의 UUID입니다
+ * @property remark 운영 측에서 남긴 메모입니다.
+ */
 class SiegeTeam(val name:String, val leaderUUID:UUID, var remark:String = ""){
 
 
     companion object{
+        /**
+         * 팀 데이터를 저장합니다.
+         */
         val DATA = HashMap<String, SiegeTeam>()
+
+        /**
+         * 팀 데이터를 파일로 저장합니다
+         */
         fun save(){
             DAO.save(DATA.values.toTypedArray())
         }
 
+        /**
+         * 파일로 저장된 팀 데이터를 불러옵니다
+         */
         fun load(){
             DATA.clear()
             val array = DAO.load()
@@ -24,24 +40,21 @@ class SiegeTeam(val name:String, val leaderUUID:UUID, var remark:String = ""){
         }
     }
 
-    private val players = HashMap<UUID, SiegePlayer>()
-
-
+    /**
+     * 이 팀의 플레이어를 가져옵니다. 플레이어 추가 삭제는 SiegePlayer클래스 쪽에 물어보세요.
+     */
     fun players():List<SiegePlayer>{
-        val list = ArrayList<SiegePlayer>()
-        val keys = players.keys
-        for(key in keys)
-            list.add(players[key]?:continue)
-        return list.toList()
+        val result = ArrayList<SiegePlayer>()
+        for(player in SiegePlayer.DATA.values)
+            if(player.team == name)
+                result.add(player)
+        
+        return result.toList()
     }
 
-    fun addPlayer(player: SiegePlayer){
-        players[player.playerUUID] = player
-    }
-    fun removePlayer(player: SiegePlayer){
-        players.remove(player.playerUUID)
-    }
-
+    /**
+     * 이 팀의 명의로 되어 있는 별을 모두 가져옵니다.
+     */
     fun castles():List<SiegeCastle>{
         val castleIDs = SiegeCastle.DATA.keys
         val arrList = ArrayList<SiegeCastle>()
@@ -52,6 +65,10 @@ class SiegeTeam(val name:String, val leaderUUID:UUID, var remark:String = ""){
 
         return arrList.toList()
     }
+
+    /**
+     * 이 팀의 명의로 되어 있는 별 중 게임상 유효한 것만을 가져옵니다
+     */
     fun aliveCastle():List<SiegeCastle>{
         val temp = ArrayList<SiegeCastle>()
         val alls = castles()
