@@ -7,6 +7,21 @@ import java.util.UUID
 
 class SiegePlayer(val playerUUID:UUID, var team: String, var isOwner:Boolean, val alias:String?) {
 
+    companion object{
+        private val DATA = HashMap<UUID, SiegePlayer>()
+
+        fun load(){
+            DATA.clear()
+            val players = DAO.load()
+            for(p in players)
+                DATA[p.playerUUID] = p
+        }
+
+        fun save(){
+            DAO.save(DATA.values.toTypedArray())
+        }
+    }
+
     private class DAO(val playerUUID:String, val team: String, val isOwner: Boolean, val alias: String?){
         constructor(siegePlayer: SiegePlayer):this(siegePlayer.playerUUID.toString(), siegePlayer.team,
             siegePlayer.isOwner, siegePlayer.alias)
