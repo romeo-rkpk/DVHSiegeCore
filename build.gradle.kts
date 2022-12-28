@@ -6,7 +6,7 @@ plugins {
     id("maven-publish")
 }
 
-group = "com.danvhae.minecraft.siege"
+group = "com.danvhae.minecraft.siege.core"
 version = "0.3.0-a1"
 
 repositories {
@@ -57,7 +57,7 @@ publishing{
     publications{
         create<MavenPublication>("maven"){
             groupId = group.toString()
-            artifactId = "SiegeCore"
+            artifactId = "DVHSiegeCore"
             version = project.version.toString()
 
         }
