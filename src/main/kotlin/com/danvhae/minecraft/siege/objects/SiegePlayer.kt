@@ -5,10 +5,10 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.util.UUID
 
-class SiegePlayer(val playerUUID:UUID, var team: SiegeTeam, var isOwner:Boolean, val alias:String?) {
+class SiegePlayer(val playerUUID:UUID, var team: String, var isOwner:Boolean, val alias:String?) {
 
-    class DAO(val playerUUID:String, val team: String, val isOwner: Boolean, val alias: String?){
-        constructor(siegePlayer: SiegePlayer):this(siegePlayer.playerUUID.toString(), siegePlayer.team.name,
+    private class DAO(val playerUUID:String, val team: String, val isOwner: Boolean, val alias: String?){
+        constructor(siegePlayer: SiegePlayer):this(siegePlayer.playerUUID.toString(), siegePlayer.team,
             siegePlayer.isOwner, siegePlayer.alias)
 
         companion object{
@@ -28,7 +28,9 @@ class SiegePlayer(val playerUUID:UUID, var team: SiegeTeam, var isOwner:Boolean,
                 val arr = gson.fromJson(json, Array<DAO>::class.java)
                 val list = ArrayList<SiegePlayer>()
                 //for(e in arr)list.add(SiegePlayer(UUID.fromString(e.playerUUID)))
-                TODO("WIP")
+                for(e in arr)
+                    list.add(SiegePlayer(UUID.fromString(e.playerUUID), e.team, e.isOwner, e.alias))
+                return list.toTypedArray()
             }
         }
     }
