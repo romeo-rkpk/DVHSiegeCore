@@ -1,6 +1,7 @@
 package com.danvhae.minecraft.siege.core.objects
 
 import com.danvhae.minecraft.siege.core.enums.SiegeCastleStatus
+import com.danvhae.minecraft.siege.core.events.CastleDataChangedEvent
 import com.danvhae.minecraft.siege.core.utils.FileUtil
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -14,14 +15,16 @@ class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, own
 
     var status: SiegeCastleStatus = status
         set(value) {
+            val temp = field
             field = value
-
+            Bukkit.getPluginManager().callEvent(CastleDataChangedEvent(id, temp, field, owner, owner))
             save()
         }
     var owner: UUID? = owner
         set(value) {
+            val temp = field
             field = value
-
+            Bukkit.getPluginManager().callEvent(CastleDataChangedEvent(id, status, status, temp, field))
             save()
         }
 
