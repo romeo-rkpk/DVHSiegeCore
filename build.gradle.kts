@@ -6,8 +6,8 @@ plugins {
     id("maven-publish")
 }
 
-group = "com.danvhae.minecraft.sieㅏge.core"
-version = "0.4.0"
+group = "com.danvhae.minecraft.siege.core"
+version = "0.4.1"
 
 repositories {
     mavenCentral()
