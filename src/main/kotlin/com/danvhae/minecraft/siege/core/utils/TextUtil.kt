@@ -13,7 +13,7 @@ class TextUtil {
         }
 
         fun onlyStartsWith(args:ArrayList<String>, str:String) : ArrayList<String>{
-            args.removeIf{s -> !s.lowercase().startsWith(str)}
+            args.removeIf{s -> !s.lowercase().startsWith(str.lowercase())}
             return args
         }
 
