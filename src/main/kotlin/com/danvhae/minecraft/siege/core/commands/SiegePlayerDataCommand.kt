@@ -56,7 +56,7 @@ class SiegePlayerDataCommand : CommandExecutor {
             return true
         }
 
-        else if(args.size == 5){
+        else if(args.size == 4){
             if(args[0] != "edit"){
                 return false
             }
