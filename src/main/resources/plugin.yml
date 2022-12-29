@@ -11,6 +11,8 @@ depend: [WorldEdit, WorldGuard, Vault]
 commands:
   castle-data:
     description: 별 데이터 제어 명령어
+  player-data:
+    description: 공성 플레이어 관리 명령어
 permissions:
   siegecontrol.support:
     default: false
