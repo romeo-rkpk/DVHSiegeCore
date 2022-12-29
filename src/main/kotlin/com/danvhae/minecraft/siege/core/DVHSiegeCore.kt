@@ -49,8 +49,9 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(PlayerLeaveRegionListener(), this)
 
         SiegeCastle.load()
-        SiegePlayer.load()
         SiegeTeam.load()
+        SiegePlayer.load()
+
 
         masterConfig = MasterConfig.load()
 
