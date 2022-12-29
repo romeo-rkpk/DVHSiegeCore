@@ -1,5 +1,7 @@
 package com.danvhae.minecraft.siege.core
 
+import com.danvhae.minecraft.siege.core.commands.CastleDataCommand
+import com.danvhae.minecraft.siege.core.completers.CastleDataCompleter
 import com.danvhae.minecraft.siege.core.utils.FileUtil
 import com.danvhae.minecraft.siege.core.objects.SiegeCastle
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
@@ -51,6 +53,9 @@ class DVHSiegeCore : JavaPlugin() {
         SiegeCastle.load()
         SiegeTeam.load()
         SiegePlayer.load()
+
+        getCommand("castle-data").executor = CastleDataCommand()
+        getCommand("castle-data").tabCompleter = CastleDataCompleter()
 
 
         masterConfig = MasterConfig.load()

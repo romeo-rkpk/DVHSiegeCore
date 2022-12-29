@@ -8,6 +8,9 @@ website: https://cafe.naver.com
 
 depend: [WorldEdit, WorldGuard, Vault]
 
+commands:
+  castle-data:
+    description: 별 데이터 제어 명령어
 permissions:
   siegecontrol.support:
     default: false
