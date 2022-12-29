@@ -27,6 +27,10 @@ class SiegePlayer(val playerUUID:UUID, team: String, isOwner:Boolean, val alias:
             //scoreTeam.removeEntry()
         }
 
+    init{
+        this.team = this.team
+    }
+
     var isOwner:Boolean = isOwner
         internal set
 
