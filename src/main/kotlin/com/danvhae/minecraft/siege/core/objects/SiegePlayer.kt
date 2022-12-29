@@ -5,7 +5,13 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.util.UUID
 
-class SiegePlayer(val playerUUID:UUID, var team: String, var isOwner:Boolean, val alias:String?) {
+class SiegePlayer(val playerUUID:UUID, team: String, isOwner:Boolean, val alias:String?) {
+
+    var team:String = team
+        internal set
+
+    var isOwner:Boolean = isOwner
+        internal set
 
     companion object{
         val DATA = HashMap<UUID, SiegePlayer>()
