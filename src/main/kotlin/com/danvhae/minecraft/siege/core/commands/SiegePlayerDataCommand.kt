@@ -24,6 +24,8 @@ class SiegePlayerDataCommand : CommandExecutor {
         else if(args.size == 1){
             if(args[0] == "load"){
                 SiegePlayer.load()
+            }else if(args[0] == "save"){
+                SiegePlayer.save()
             }else return false
         }
         else if(args.size == 2){

@@ -24,7 +24,6 @@ class SiegePlayer(val playerUUID:UUID, team: String, isOwner:Boolean, val alias:
                     }
                 }
             }
-            save()
             //scoreTeam.removeEntry()
         }
 
