@@ -4,6 +4,8 @@ import com.danvhae.minecraft.siege.core.enums.SiegeCastleStatus
 import com.danvhae.minecraft.siege.core.utils.FileUtil
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import org.bukkit.Bukkit
+import org.bukkit.scoreboard.Team
 import java.util.*
 
 /**
@@ -14,6 +16,12 @@ import java.util.*
  */
 class SiegeTeam(val name:String, val leaderUUID:UUID, val colorPrefix:String = "&f", var remark:String = ""){
 
+    internal val team:Team
+    init {
+        val scoreboard = Bukkit.getScoreboardManager().mainScoreboard
+        scoreboard.getTeam(name)?.unregister()
+        this.team = scoreboard.registerNewTeam(name)
+    }
 
     companion object{
         /**
