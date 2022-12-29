@@ -11,7 +11,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, team:String?,
-                  var attackPosition:Location, var workPosition:Location, var worldGuardID:String){
+                  internal var attackPosition:Location, internal var workPosition:Location,
+                  internal var worldGuardID:String){
 
     var status: SiegeCastleStatus = status
         set(value) {
