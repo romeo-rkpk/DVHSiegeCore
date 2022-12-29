@@ -63,13 +63,15 @@ class CastleDataCommand : CommandExecutor {
                 if (attribute == "worldGuardId".lowercase(Locale.getDefault())) {
                     castle.worldGuardID = value
                 } else if (attribute == "status") {
-                    var status:SiegeCastleStatus? = null
+                    val status:SiegeCastleStatus
                     try {
                         status = SiegeCastleStatus.valueOf(value)
                     }catch(_:Exception){
                         sender.sendMessage("invalid status")
                         return false
                     }
+
+                    castle.status = status
                 } else if (attribute == "team") {
                     var team: SiegeTeam? = SiegeTeam.DATA[value]
                     if(team == null) {
