@@ -1,14 +1,31 @@
 package com.danvhae.minecraft.siege.core.objects
 
+import com.danvhae.minecraft.siege.core.DVHSiegeCore
 import com.danvhae.minecraft.siege.core.utils.FileUtil
+import com.danvhae.minecraft.siege.core.utils.NameUtil
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import java.util.UUID
+import org.bukkit.Bukkit
+import java.util.*
 
 class SiegePlayer(val playerUUID:UUID, team: String, isOwner:Boolean, val alias:String?) {
 
     var team:String = team
-        internal set
+        internal set(value){
+            val temp = field
+            field = value
+            //SiegeTeam.load()
+            val scoreboard = Bukkit.getScoreboardManager().mainScoreboard
+            Bukkit.getScheduler().runTask(DVHSiegeCore.instance) {
+                NameUtil.uuidToName(playerUUID)?.let {name ->
+                    run {
+                        scoreboard.getTeam(temp).removeEntry(name)
+                        scoreboard.getTeam(field).addEntry(name)
+                    }
+                }
+            }
+            //scoreTeam.removeEntry()
+        }
 
     var isOwner:Boolean = isOwner
         internal set
