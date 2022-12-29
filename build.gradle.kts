@@ -21,7 +21,10 @@ repositories {
         url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     }
 
-    mavenLocal()
+    //Vault
+    maven { url = uri("https://jitpack.io")}
+
+    //mavenLocal()
 }
 
 dependencies {
@@ -30,8 +33,10 @@ dependencies {
 
     compileOnly(files(env.fetch("WORLD_EDIT_FILE")))
     compileOnly(files(env.fetch("WORLD_GUARD_FILE")))
-    compileOnly(files(env.fetch("DP_CORE_FILE")))
-    compileOnly(files(env.fetch("DP_RPG_FILE")))
+
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+    //compileOnly(files(env.fetch("DP_CORE_FILE")))
+    //compileOnly(files(env.fetch("DP_RPG_FILE")))
 
 
 }
