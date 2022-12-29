@@ -8,7 +8,9 @@ import com.danvhae.minecraft.siege.core.listeners.PlayerEnterRegionListener
 import com.danvhae.minecraft.siege.core.listeners.PlayerLeaveRegionListener
 import com.danvhae.minecraft.siege.core.listeners.PlayerMoveRegionListener
 import com.danvhae.minecraft.siege.core.objects.MasterConfig
+import net.milkbowl.vault.economy.Economy
 import org.bukkit.Bukkit
+import org.bukkit.plugin.RegisteredServiceProvider
 import org.bukkit.plugin.java.JavaPlugin
 
 class DVHSiegeCore : JavaPlugin() {
@@ -17,6 +19,10 @@ class DVHSiegeCore : JavaPlugin() {
         const val FOLDER_PATH = "plugins/DVHsiege"
         const val DISTRESS_ZONE_ID = "#DISTRESS"
         var masterConfig:MasterConfig = MasterConfig()
+            private set
+
+        var economy: Economy? = null
+            get(){return field!!}
             private set
 
         var instance: DVHSiegeCore? = null
@@ -29,6 +35,12 @@ class DVHSiegeCore : JavaPlugin() {
     override fun onEnable() {
         instance = this
         FileUtil.initFolder()
+
+        if(server.pluginManager.getPlugin("Vault") != null){
+            val resp:RegisteredServiceProvider<Economy>? = server.servicesManager.getRegistration(Economy::class.java)
+            economy = resp?.provider!!
+        }
+
         Bukkit.getLogger().info("단츄 보라비 해야 화이팅!")
 
         val pm = Bukkit.getPluginManager()
