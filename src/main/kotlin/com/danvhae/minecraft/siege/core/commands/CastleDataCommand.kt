@@ -5,6 +5,7 @@ import com.danvhae.minecraft.siege.core.objects.SiegeCastle
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
 import com.danvhae.minecraft.siege.core.objects.SiegeTeam
 import com.danvhae.minecraft.siege.core.utils.PermissionUtil
+import com.danvhae.minecraft.siege.core.utils.TextUtil
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.command.Command
@@ -40,7 +41,7 @@ class CastleDataCommand : CommandExecutor {
                 val castle = SiegeCastle.DATA[args[0]]?:return false
                 sender.sendMessage("${castle.id}(${castle.name}) 정보")
                 sender.sendMessage("상태 : ${castle.status}")
-                sender.sendMessage("소유 : ${castle.team}")
+                sender.sendMessage("소유 : ${TextUtil.toColor(SiegeTeam.DATA[castle.team]!!.colorPrefix)}${castle.team}")
                 true
             }
         } else if (args.size == 2) {
