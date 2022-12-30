@@ -56,6 +56,7 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(StarBuyConfirmGUIListener(), this)
         pm.registerEvents(PlayerSignClickListener(), this)
 
+
         SiegeCastle.load()
         SiegeTeam.load()
         SiegePlayer.load()
