@@ -1,18 +1,17 @@
 package com.danvhae.minecraft.siege.core
 
 import com.danvhae.minecraft.siege.core.commands.CastleDataCommand
+import com.danvhae.minecraft.siege.core.commands.GUITestCommand
 import com.danvhae.minecraft.siege.core.commands.SiegePlayerDataCommand
 import com.danvhae.minecraft.siege.core.completers.CastleDataCompleter
 import com.danvhae.minecraft.siege.core.completers.SiegePlayerDataCompleter
 import com.danvhae.minecraft.siege.core.listeners.CastleEliminatedListener
 import com.danvhae.minecraft.siege.core.utils.FileUtil
-import com.danvhae.minecraft.siege.core.objects.SiegeCastle
-import com.danvhae.minecraft.siege.core.objects.SiegePlayer
-import com.danvhae.minecraft.siege.core.objects.SiegeTeam
 import com.danvhae.minecraft.siege.core.listeners.PlayerEnterRegionListener
 import com.danvhae.minecraft.siege.core.listeners.PlayerLeaveRegionListener
 import com.danvhae.minecraft.siege.core.listeners.PlayerMoveRegionListener
-import com.danvhae.minecraft.siege.core.objects.MasterConfig
+import com.danvhae.minecraft.siege.core.listeners.guis.StarShopGUIListener
+import com.danvhae.minecraft.siege.core.objects.*
 import net.milkbowl.vault.economy.Economy
 import org.bukkit.Bukkit
 import org.bukkit.plugin.RegisteredServiceProvider
@@ -53,16 +52,20 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(PlayerEnterRegionListener(), this)
         pm.registerEvents(PlayerLeaveRegionListener(), this)
         pm.registerEvents(CastleEliminatedListener(), this)
+        pm.registerEvents(StarShopGUIListener(), this)
 
         SiegeCastle.load()
         SiegeTeam.load()
         SiegePlayer.load()
+        DVHStaticGUI.load()
 
         getCommand("castle-data").executor = CastleDataCommand()
         getCommand("castle-data").tabCompleter = CastleDataCompleter()
 
         getCommand("player-data").executor = SiegePlayerDataCommand()
         getCommand("player-data").tabCompleter = SiegePlayerDataCompleter()
+
+        getCommand("gui-test").executor = GUITestCommand()
 
         masterConfig = MasterConfig.load()
     }
