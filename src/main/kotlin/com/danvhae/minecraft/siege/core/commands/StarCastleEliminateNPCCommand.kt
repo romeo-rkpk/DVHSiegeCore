@@ -1,5 +1,6 @@
 package com.danvhae.minecraft.siege.core.commands
 
+import com.danvhae.minecraft.siege.core.events.CastleEliminatedEvent
 import com.danvhae.minecraft.siege.core.objects.SiegeCastle
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
 import com.danvhae.minecraft.siege.core.utils.NameUtil
@@ -46,7 +47,7 @@ class StarCastleEliminateNPCCommand :CommandExecutor{
             return false
         }
 
-        TODO("Not yet implemented")
-
+        Bukkit.getPluginManager().callEvent(CastleEliminatedEvent(castle, siegePlayer, args[2]))
+        return true
     }
 }
