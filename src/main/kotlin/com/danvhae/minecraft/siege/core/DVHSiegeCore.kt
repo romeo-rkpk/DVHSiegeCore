@@ -7,11 +7,8 @@ import com.danvhae.minecraft.siege.core.commands.SiegePlayerDataCommand
 import com.danvhae.minecraft.siege.core.completers.CastleDataCompleter
 import com.danvhae.minecraft.siege.core.completers.SiegePlayerDataCompleter
 import com.danvhae.minecraft.siege.core.gui.StarBuyConfirmGUI
-import com.danvhae.minecraft.siege.core.listeners.CastleEliminatedListener
+import com.danvhae.minecraft.siege.core.listeners.*
 import com.danvhae.minecraft.siege.core.utils.FileUtil
-import com.danvhae.minecraft.siege.core.listeners.PlayerEnterRegionListener
-import com.danvhae.minecraft.siege.core.listeners.PlayerLeaveRegionListener
-import com.danvhae.minecraft.siege.core.listeners.PlayerMoveRegionListener
 import com.danvhae.minecraft.siege.core.listeners.guis.StarBuyConfirmGUIListener
 import com.danvhae.minecraft.siege.core.listeners.guis.StarShopGUIListener
 import com.danvhae.minecraft.siege.core.objects.*
@@ -57,6 +54,8 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(CastleEliminatedListener(), this)
         pm.registerEvents(StarShopGUIListener(), this)
         pm.registerEvents(StarBuyConfirmGUIListener(), this)
+        pm.registerEvents(PlayerSignClickListener(), this)
+
 
         SiegeCastle.load()
         SiegeTeam.load()
