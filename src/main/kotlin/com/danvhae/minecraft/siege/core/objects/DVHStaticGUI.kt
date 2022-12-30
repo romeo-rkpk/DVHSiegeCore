@@ -12,8 +12,8 @@ class DVHStaticGUI(val title:String, val rows:Int, val buttons:List<DVHGUIButton
     companion object{
         private const val FILE_NAME = "gui.json"
         private val GUIS = HashMap<String, DVHStaticGUI>()
-        fun parseGUI(event:InventoryClickEvent): DVHStaticGUI?{
-            return GUIS[ChatColor.stripColor(event.inventory.title)]
+        fun parseGUI(inventory: Inventory): DVHStaticGUI?{
+            return GUIS[ChatColor.stripColor(inventory.title?:return null)]
         }
 
         fun load(){
@@ -21,9 +21,17 @@ class DVHStaticGUI(val title:String, val rows:Int, val buttons:List<DVHGUIButton
             val json = FileUtil.readTextFile(FILE_NAME)?:return
             val arr = Gson().fromJson(json, Array<DVHStaticGUI>::class.java)?:return
             for(gui in arr){
-                GUIS[ChatColor.stripColor(gui.title)] = gui
+                GUIS[ChatColor.stripColor(TextUtil.toColor(gui.title))] = gui
             }
         }
+
+        operator fun get(id:String):DVHStaticGUI?{
+            return GUIS[id]
+        }
+    }
+
+    fun id():String{
+        return ChatColor.stripColor(TextUtil.toColor(title))
     }
 
     fun createInventory():Inventory{
