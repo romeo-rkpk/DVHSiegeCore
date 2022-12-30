@@ -4,6 +4,7 @@ import com.danvhae.minecraft.siege.core.commands.CastleDataCommand
 import com.danvhae.minecraft.siege.core.commands.SiegePlayerDataCommand
 import com.danvhae.minecraft.siege.core.completers.CastleDataCompleter
 import com.danvhae.minecraft.siege.core.completers.SiegePlayerDataCompleter
+import com.danvhae.minecraft.siege.core.listeners.CastleEliminatedListener
 import com.danvhae.minecraft.siege.core.utils.FileUtil
 import com.danvhae.minecraft.siege.core.objects.SiegeCastle
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
@@ -51,6 +52,7 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(PlayerMoveRegionListener(), this)
         pm.registerEvents(PlayerEnterRegionListener(), this)
         pm.registerEvents(PlayerLeaveRegionListener(), this)
+        pm.registerEvents(CastleEliminatedListener(), this)
 
         SiegeCastle.load()
         SiegeTeam.load()
