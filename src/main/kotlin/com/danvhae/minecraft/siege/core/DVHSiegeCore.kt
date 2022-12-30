@@ -1,15 +1,18 @@
 package com.danvhae.minecraft.siege.core
 
 import com.danvhae.minecraft.siege.core.commands.CastleDataCommand
+import com.danvhae.minecraft.siege.core.commands.GUIDataCommand
 import com.danvhae.minecraft.siege.core.commands.GUITestCommand
 import com.danvhae.minecraft.siege.core.commands.SiegePlayerDataCommand
 import com.danvhae.minecraft.siege.core.completers.CastleDataCompleter
 import com.danvhae.minecraft.siege.core.completers.SiegePlayerDataCompleter
+import com.danvhae.minecraft.siege.core.gui.StarBuyConfirmGUI
 import com.danvhae.minecraft.siege.core.listeners.CastleEliminatedListener
 import com.danvhae.minecraft.siege.core.utils.FileUtil
 import com.danvhae.minecraft.siege.core.listeners.PlayerEnterRegionListener
 import com.danvhae.minecraft.siege.core.listeners.PlayerLeaveRegionListener
 import com.danvhae.minecraft.siege.core.listeners.PlayerMoveRegionListener
+import com.danvhae.minecraft.siege.core.listeners.guis.StarBuyConfirmGUIListener
 import com.danvhae.minecraft.siege.core.listeners.guis.StarShopGUIListener
 import com.danvhae.minecraft.siege.core.objects.*
 import net.milkbowl.vault.economy.Economy
@@ -53,6 +56,7 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(PlayerLeaveRegionListener(), this)
         pm.registerEvents(CastleEliminatedListener(), this)
         pm.registerEvents(StarShopGUIListener(), this)
+        pm.registerEvents(StarBuyConfirmGUIListener(), this)
 
         SiegeCastle.load()
         SiegeTeam.load()
@@ -66,6 +70,8 @@ class DVHSiegeCore : JavaPlugin() {
         getCommand("player-data").tabCompleter = SiegePlayerDataCompleter()
 
         getCommand("gui-test").executor = GUITestCommand()
+
+        getCommand("gui-data").executor = GUIDataCommand()
 
         masterConfig = MasterConfig.load()
     }
