@@ -1,5 +1,6 @@
 package com.danvhae.minecraft.siege.core.utils
 
+import com.danvhae.minecraft.siege.core.DVHSiegeCore
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import org.bukkit.Bukkit
@@ -16,6 +17,9 @@ class NameUtil {
         private val uuidToNameCache = HashMap<UUID, String>()
         private val nameToUUIDCache = HashMap<String, UUID>()
 
+        /**
+         * uppercase해서 여기다가 조회하면 대소문자 잘 고려해준 원래 이름이 나옵니다.
+         */
         private val nameUpperCaseCache = HashMap<String, String>()
 
         private fun httpRequest(urlString: String, parameter: String): String? {
@@ -137,6 +141,26 @@ class NameUtil {
 
             } }
             return null
+        }
+
+        /**
+         * API 사용을 최소화 하기 위해, uuid와 name을 확신할 수 있는 경우에는 이 함수를 이용하여 직접 캐시에 저장합니다.
+         */
+        internal fun putCache(uuid:UUID, name:String){
+            nameToUUIDCache[name] = uuid
+            uuidToNameCache[uuid] = name
+            nameUpperCaseCache[name.uppercase()] = name
+        }
+
+        /**
+         * 어떤 이유가 있어 캐시를 신뢰할 수 없다면 이 함수를 통해 캐시를 지우십시오
+         */
+        internal fun removeCache(uuid:UUID){
+            Bukkit.getScheduler().runTask(DVHSiegeCore.instance){
+                val name = uuidToName(uuid)
+                uuidToNameCache.remove(uuid)
+                name?.let { nameToUUIDCache.remove(it); nameUpperCaseCache.remove(it) }
+            }
         }
     }
 }
