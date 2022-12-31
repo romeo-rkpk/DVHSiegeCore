@@ -48,7 +48,7 @@ class NameUtil {
         }
 
 
-        fun nameToUUID(_name: String?, checkOnline:Boolean = false): UUID? {
+        fun nameToUUID(_name: String?, checkOnline:Boolean = true): UUID? {
             _name?:return null
 
             val name = nameUpperCaseCache.getOrDefault(_name.uppercase(), _name)
