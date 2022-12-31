@@ -11,8 +11,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, team:String?,
-                  internal var attackPosition:Location, internal var workPosition:Location,
-                  internal var worldGuardID:String){
+                  attackPosition:Location, workPosition:Location,
+                  worldGuardID:String){
 
     var status: SiegeCastleStatus = status
         set(value) {
@@ -28,6 +28,15 @@ class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, tea
             Bukkit.getPluginManager().callEvent(CastleDataChangedEvent(id, status, status, temp, field))
             save()
         }
+
+    var attackPosition:Location = attackPosition
+        internal set
+
+    var workPosition:Location = workPosition
+        internal set
+
+    var worldGuardID:String = worldGuardID
+        internal set
 
     //저거 둘은 나중에 이벤트 호출 할 예정
 
