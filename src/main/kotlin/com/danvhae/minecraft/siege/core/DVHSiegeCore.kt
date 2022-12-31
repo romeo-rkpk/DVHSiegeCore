@@ -4,6 +4,7 @@ import com.danvhae.minecraft.siege.core.commands.*
 import com.danvhae.minecraft.siege.core.completers.CastleDataCompleter
 import com.danvhae.minecraft.siege.core.completers.MasterConfigCompleter
 import com.danvhae.minecraft.siege.core.completers.SiegePlayerDataCompleter
+import com.danvhae.minecraft.siege.core.completers.TeamDataCompleter
 import com.danvhae.minecraft.siege.core.gui.StarBuyConfirmGUI
 import com.danvhae.minecraft.siege.core.listeners.*
 import com.danvhae.minecraft.siege.core.utils.FileUtil
@@ -75,6 +76,7 @@ class DVHSiegeCore : JavaPlugin() {
 
         getCommand("siege-team-data").let { cmd ->
             cmd.executor = TeamDataCommand()
+            cmd.tabCompleter = TeamDataCompleter()
         }
 
 
