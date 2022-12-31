@@ -29,6 +29,23 @@ class SiegeTeam(val name:String, val leaderUUID:UUID, val colorPrefix:String = "
          */
         val DATA = HashMap<String, SiegeTeam>()
 
+        operator fun contains(teamName:String):Boolean{
+            for(team in DATA.values){
+                if(teamName == team.name) return true
+            }
+            return false
+        }
+
+        /**
+         * 굳이 DATA객체 쓸 필요 없이 바로 get 가능하도록
+         */
+        operator fun get(teamName:String):SiegeTeam?{
+            for(team in DATA.values){
+                if(team.name == teamName)return team
+            }
+            return null
+        }
+
         /**
          * 팀 데이터를 파일로 저장합니다
          */
