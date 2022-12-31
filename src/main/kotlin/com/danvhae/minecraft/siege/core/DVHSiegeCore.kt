@@ -73,6 +73,10 @@ class DVHSiegeCore : JavaPlugin() {
             cmd.tabCompleter = MasterConfigCompleter()
         }
 
+        getCommand("siege-team-data").let { cmd ->
+            cmd.executor = TeamDataCommand()
+        }
+
 
         getCommand("gui-test").executor = GUITestCommand()
 
