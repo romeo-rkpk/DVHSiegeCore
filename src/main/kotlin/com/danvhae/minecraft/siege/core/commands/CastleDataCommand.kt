@@ -41,7 +41,9 @@ class CastleDataCommand : CommandExecutor {
                 val castle = SiegeCastle.DATA[args[0]]?:return false
                 sender.sendMessage("${castle.id}(${castle.name}) 정보")
                 sender.sendMessage("상태 : ${castle.status}")
-                sender.sendMessage("소유 : ${TextUtil.toColor(SiegeTeam.DATA[castle.team]!!.colorPrefix)}${castle.team}")
+                sender.sendMessage("소유 : ${
+                    TextUtil.toColor(SiegeTeam.DATA[castle.team]?.colorPrefix?:"&f(없음)")
+                }${castle.team}")
                 true
             }
         } else if (args.size == 2) {
