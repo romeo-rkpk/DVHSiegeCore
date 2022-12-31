@@ -40,6 +40,20 @@ class SiegePlayer(val playerUUID:UUID, team: String, isOwner:Boolean, alias:Stri
     companion object{
         val DATA = HashMap<UUID, SiegePlayer>()
 
+        operator fun contains(uuid:UUID):Boolean{
+            for(sPlayer in DATA.values){
+                if(sPlayer.playerUUID == uuid)return true
+            }
+            return false
+        }
+
+        operator fun get(uuid:UUID): SiegePlayer?{
+            for(sPlayer in DATA.values){
+                if(sPlayer.playerUUID == uuid) return sPlayer
+            }
+            return null
+        }
+
         fun load(){
             DATA.clear()
             val players = DAO.load()
