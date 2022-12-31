@@ -17,6 +17,9 @@ commands:
     description: gui데이터 관리 명령어
   gui-test:
     description: gui test
+    
+  master-config:
+    description: 각종 설정 제어 명령어
 permissions:
   siegecontrol.support:
     default: false
