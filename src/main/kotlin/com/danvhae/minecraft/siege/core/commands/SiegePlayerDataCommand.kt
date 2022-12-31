@@ -17,6 +17,8 @@ class SiegePlayerDataCommand : CommandExecutor {
         if(args.isEmpty()){
             sender.sendMessage("/player-data load")
             sender.sendMessage("/player-data info <NAME>")
+            sender.sendMessage("/player-data add team NAME")
+            sender.sendMessage("/player-data remove NAME")
             //sender.sendMessage("/player-data init <NAME>")
             //sender.sendMessage("/player-data delete <NAME>")
             sender.sendMessage("/player-data edit <NAME> <Attribute> <Value>")
@@ -29,7 +31,7 @@ class SiegePlayerDataCommand : CommandExecutor {
             }else return false
         }
         else if(args.size == 2){
-            if(args[0] == "info") {
+            if(args[0] in listOf("info", "remove")) {
                 sender.sendMessage("================================")
                 Bukkit.getScheduler().runTask(DVHSiegeCore.instance) {
                     NameUtil.nameToUUID(args[1]).let { uuid ->
@@ -38,16 +40,23 @@ class SiegePlayerDataCommand : CommandExecutor {
                             return@runTask
                         }
 
+
                         SiegePlayer.DATA[uuid].let { player ->
                             if (player == null) {
                                 sender.sendMessage("해당 플레이어의 데이터가 존재하지 않습니다")
                                 return@runTask
                             }
-                            sender.sendMessage("%s님 공성 플레이어 정보------------------".format(NameUtil.uuidToName(uuid)!!))
-                            sender.sendMessage("소속 : ${player.team}")
-                            sender.sendMessage("성주 여부 : ${player.isOwner}")
-                            sender.sendMessage("별칭 : ${player.alias}")
-                            sender.sendMessage("UUID : ${player.playerUUID}")
+
+                            if(args[0] == "info") {
+                                sender.sendMessage("%s님 공성 플레이어 정보------------------".format(NameUtil.uuidToName(uuid)!!))
+                                sender.sendMessage("소속 : ${player.team}")
+                                sender.sendMessage("성주 여부 : ${player.isOwner}")
+                                sender.sendMessage("별칭 : ${player.alias}")
+                                sender.sendMessage("UUID : ${player.playerUUID}")
+                            }else{
+                                SiegePlayer.DATA.remove(uuid)
+                                sender.sendMessage("${NameUtil.uuidToName(uuid, true)}님 데이터를 제거하였습니다.")
+                            }
                         }
                     }
                 }
@@ -56,6 +65,23 @@ class SiegePlayerDataCommand : CommandExecutor {
             }
 
             return true
+        }else if(args.size == 3){
+            if(args[0] == "add"){
+                val team = SiegeTeam.DATA[args[1]]
+                if(team == null){
+                    sender.sendMessage("${args[1]}은 올바르지 않은 팀 이름입니다.")
+                    return false
+                }
+                Bukkit.getScheduler().runTask(DVHSiegeCore.instance) {
+                    val uuid = NameUtil.nameToUUID(args[2])
+                    if(uuid == null){
+                        sender.sendMessage("잘못된 플레이어 이름입니다")
+                        return@runTask
+                    }
+
+                    SiegePlayer.DATA[uuid] = SiegePlayer(uuid, team.name, false, null)
+                }
+            }
         }
 
         else if(args.size == 4){
@@ -86,7 +112,11 @@ class SiegePlayerDataCommand : CommandExecutor {
 
                         player.team = team.name
                     }
-                }else{
+                }else if(args[2] == "alias"){
+                    player.alias = args[3]
+                }
+
+                else{
                     sender.sendMessage("올바르지 않은 속성입니다")
                     return@runTask
                 }
