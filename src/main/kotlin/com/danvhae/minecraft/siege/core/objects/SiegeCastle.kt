@@ -47,6 +47,20 @@ class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, tea
     companion object{
         val DATA = HashMap<String, SiegeCastle>()
 
+        operator fun contains(id:String):Boolean{
+            for(castle in DATA.values){
+                if(id == castle.id)return true
+            }
+            return false
+        }
+
+        operator fun get(id:String):SiegeCastle?{
+            for(castle in DATA.values){
+                if(castle.id == id)return castle
+            }
+            return null
+        }
+
         fun save(){
             DAO.save(DATA.values.toTypedArray())
         }
