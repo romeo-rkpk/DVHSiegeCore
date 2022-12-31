@@ -41,7 +41,7 @@ class SiegePlayerDataCommand : CommandExecutor {
                         }
 
 
-                        SiegePlayer.DATA[uuid].let { player ->
+                        SiegePlayer[uuid].let { player ->
                             if (player == null) {
                                 sender.sendMessage("해당 플레이어의 데이터가 존재하지 않습니다")
                                 return@runTask
@@ -67,7 +67,7 @@ class SiegePlayerDataCommand : CommandExecutor {
             return true
         }else if(args.size == 3){
             if(args[0] == "add"){
-                val team = SiegeTeam.DATA[args[1]]
+                val team = SiegeTeam[args[1]]
                 if(team == null){
                     sender.sendMessage("${args[1]}은 올바르지 않은 팀 이름입니다.")
                     return false
@@ -76,6 +76,10 @@ class SiegePlayerDataCommand : CommandExecutor {
                     val uuid = NameUtil.nameToUUID(args[2])
                     if(uuid == null){
                         sender.sendMessage("잘못된 플레이어 이름입니다")
+                        return@runTask
+                    }
+                    if(uuid in SiegePlayer){
+                        sender.sendMessage("그 사람은 이미 공성 플레이어로 등록되어 있습니다")
                         return@runTask
                     }
 
@@ -97,14 +101,14 @@ class SiegePlayerDataCommand : CommandExecutor {
                     return@runTask
                 }
 
-                val player = SiegePlayer.DATA[uuid]
+                val player = SiegePlayer[uuid]
                 if(player == null){
                     sender.sendMessage("존재하지 않는 플레이어입니다")
                     return@runTask
                 }
 
                 if(args[2] == "team"){
-                    SiegeTeam.DATA[args[3]].let { team ->
+                    SiegeTeam[args[3]].let { team ->
                         if(team == null){
                             sender.sendMessage("존재하지 않는 팀입니다")
                             return@runTask
