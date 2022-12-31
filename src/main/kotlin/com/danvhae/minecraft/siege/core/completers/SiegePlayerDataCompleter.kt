@@ -2,6 +2,7 @@ package com.danvhae.minecraft.siege.core.completers
 
 import com.danvhae.minecraft.siege.core.objects.SiegeTeam
 import com.danvhae.minecraft.siege.core.utils.TextUtil
+import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
@@ -16,15 +17,26 @@ class SiegePlayerDataCompleter : TabCompleter {
 
         when(args.size){
             1 ->{
-                result.addAll(listOf("load", "info", "edit"))
+                result.addAll(listOf("load", "info", "edit", "remove", "add"))
             }
-
+            2->{
+                if(args[0] in listOf("info", "edit", "remove")){
+                    for(p in Bukkit.getOnlinePlayers())
+                        result.add(p.name)
+                }else if(args[0] == "add"){
+                    for(team in SiegeTeam.DATA.values){
+                        result.add(team.name)
+                    }
+                }
+            }
             3->{
-                result.add("team")
+                result.addAll(listOf("team", "alias"))
             }
             4->{
-                for(team in SiegeTeam.DATA.values){
-                    result.add(team.name)
+                if(args[2] == "team") {
+                    for (team in SiegeTeam.DATA.values) {
+                        result.add(team.name)
+                    }
                 }
             }
         }
