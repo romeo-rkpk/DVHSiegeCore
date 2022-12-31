@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder
 import org.bukkit.Bukkit
 import java.util.*
 
-class SiegePlayer(val playerUUID:UUID, team: String, isOwner:Boolean, val alias:String?) {
+class SiegePlayer(val playerUUID:UUID, team: String, isOwner:Boolean, alias:String?) {
 
     var team:String = team
         internal set(value){
@@ -26,6 +26,9 @@ class SiegePlayer(val playerUUID:UUID, team: String, isOwner:Boolean, val alias:
             }
             //scoreTeam.removeEntry()
         }
+
+    var alias:String? = alias
+        internal set
 
     init{
         this.team = this.team
