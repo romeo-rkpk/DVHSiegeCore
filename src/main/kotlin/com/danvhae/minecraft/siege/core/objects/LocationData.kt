@@ -8,4 +8,8 @@ class LocationData(val worldName:String, val x:Double, val y:Double, val z:Doubl
     fun toLocation():Location?{
         return Location(Bukkit.getWorld(worldName)?:return null, x, y, z)
     }
+
+    override fun toString(): String {
+        return "world:${worldName} x:${x} y:${y} z:${z}"
+    }
 }
