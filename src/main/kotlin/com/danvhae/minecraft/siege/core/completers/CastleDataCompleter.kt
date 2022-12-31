@@ -38,7 +38,7 @@ class CastleDataCompleter : TabCompleter {
             }
         } else if (args.size == 3) {
             if (args[0].equals("edit", ignoreCase = true)) {
-                result.addAll(Lists.newArrayList("worldGuardId", "status", "owner", "level", "tp-attack", "tp-work"))
+                result.addAll(Lists.newArrayList("worldGuardId", "status", "team", "level", "tp-attack", "tp-work"))
             } else if (args[0].equals("tp", ignoreCase = true)) {
                 Bukkit.getOnlinePlayers().forEach { p: Player? -> result.add(p!!.name) }
             }
