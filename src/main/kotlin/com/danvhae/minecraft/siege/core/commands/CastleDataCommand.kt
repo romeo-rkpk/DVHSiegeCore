@@ -42,8 +42,10 @@ class CastleDataCommand : CommandExecutor {
                 sender.sendMessage("${castle.id}(${castle.name}) 정보")
                 sender.sendMessage("상태 : ${castle.status}")
                 sender.sendMessage("소유 : ${
-                    TextUtil.toColor(SiegeTeam.DATA[castle.team]?.colorPrefix?:"&f(없음)")
-                }${castle.team}")
+                    castle.team.let {  
+                        return@let if(it == null) "없음" else TextUtil.toColor("${SiegeTeam[it]!!.colorPrefix}${it}")
+                    }
+                }")
                 true
             }
         } else if (args.size == 2) {
