@@ -1,7 +1,7 @@
 package com.danvhae.minecraft.siege.core.listeners
 
 import com.danvhae.minecraft.siege.core.DVHSiegeCore
-import com.danvhae.minecraft.siege.core.commands.LastCastleEliminateEvent
+import com.danvhae.minecraft.siege.core.events.LastCastleEliminateEvent
 import com.danvhae.minecraft.siege.core.enums.SiegeCastleStatus
 import com.danvhae.minecraft.siege.core.events.CastleEliminatedEvent
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
