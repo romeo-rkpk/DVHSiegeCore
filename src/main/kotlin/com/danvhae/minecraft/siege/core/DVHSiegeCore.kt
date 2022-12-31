@@ -1,10 +1,8 @@
 package com.danvhae.minecraft.siege.core
 
-import com.danvhae.minecraft.siege.core.commands.CastleDataCommand
-import com.danvhae.minecraft.siege.core.commands.GUIDataCommand
-import com.danvhae.minecraft.siege.core.commands.GUITestCommand
-import com.danvhae.minecraft.siege.core.commands.SiegePlayerDataCommand
+import com.danvhae.minecraft.siege.core.commands.*
 import com.danvhae.minecraft.siege.core.completers.CastleDataCompleter
+import com.danvhae.minecraft.siege.core.completers.MasterConfigCompleter
 import com.danvhae.minecraft.siege.core.completers.SiegePlayerDataCompleter
 import com.danvhae.minecraft.siege.core.gui.StarBuyConfirmGUI
 import com.danvhae.minecraft.siege.core.listeners.*
@@ -67,10 +65,18 @@ class DVHSiegeCore : JavaPlugin() {
 
         getCommand("player-data").executor = SiegePlayerDataCommand()
         getCommand("player-data").tabCompleter = SiegePlayerDataCompleter()
+        getCommand("gui-data").executor = GUIDataCommand()
+
+        getCommand("master-config").let { cmd ->
+            cmd.executor = MasterConfigurationCommand()
+            cmd.tabCompleter = MasterConfigCompleter()
+        }
+
 
         getCommand("gui-test").executor = GUITestCommand()
 
-        getCommand("gui-data").executor = GUIDataCommand()
+
+
 
         masterConfig = MasterConfig.load()
     }
