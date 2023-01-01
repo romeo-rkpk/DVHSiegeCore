@@ -30,7 +30,12 @@ class SiegePlayerDataCompleter : TabCompleter {
                 }
             }
             3->{
-                result.addAll(listOf("team", "alias"))
+                if(args[0] == "edit")
+                    result.addAll(listOf("team", "alias"))
+                else
+                    for(p in Bukkit.getOnlinePlayers())
+                        result.add(p.name)
+
             }
             4->{
                 if(args[2] == "team") {
