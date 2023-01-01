@@ -80,11 +80,7 @@ class DVHSiegeCore : JavaPlugin() {
         }
 
         getCommand("멸망판정").executor = StarCastleEliminateNPCCommand()
-
-
-        getCommand("gui-test").executor = GUITestCommand()
-
-
+        getCommand("회의실").executor = MeetingRoomCommand()
 
 
         masterConfig = MasterConfig.load()
