@@ -15,12 +15,16 @@ class MasterConfigCompleter : TabCompleter {
         if(!PermissionUtil.supportTeamOrConsole(sender))return arrayListOf()
         val result = ArrayList<String>()
         if(args.size == 1){
-            result.addAll(listOf("load", "save", "wildWorld", "period", "sirius"))
+            result.addAll(listOf("load", "save", "wildWorld", "period", "sirius", "meetingRoom"))
         }else if(args.size == 2){
             when(args[0]){
                 "period", "sirius" -> result.addAll(listOf("true", "false"))
                 "wildWorld" ->{
                     Bukkit.getWorlds().forEach{world -> result.add(world.name)}
+                }
+
+                "meetingRoom" ->{
+                    result.add("set")
                 }
             }
         }
