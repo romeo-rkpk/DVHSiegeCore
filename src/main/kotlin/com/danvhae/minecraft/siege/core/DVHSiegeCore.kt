@@ -79,6 +79,8 @@ class DVHSiegeCore : JavaPlugin() {
             cmd.tabCompleter = TeamDataCompleter()
         }
 
+        getCommand("멸망판정").executor = StarCastleEliminateNPCCommand()
+
 
         getCommand("gui-test").executor = GUITestCommand()
 
