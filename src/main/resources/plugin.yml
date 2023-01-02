@@ -10,6 +10,7 @@ depend: [WorldEdit, WorldGuard, Vault]
 
 commands:
   회의실:
+    permission: siegecontrol.player
     description: 회의실로 이동합니다
 
   castle-data:
@@ -31,3 +32,6 @@ permissions:
   siegecontrol.support:
     default: false
     description: 본 콘텐츠 지원팀에게 부여됩니다
+  siegecontrol.player:
+    default: true
+    description: 대기 중인 일꾼만이 이 권한을 가지고 있지 않습니다.
