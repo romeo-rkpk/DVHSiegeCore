@@ -2,6 +2,7 @@ package com.danvhae.minecraft.siege.core.listeners.guis
 
 import com.danvhae.minecraft.siege.core.DVHSiegeCore
 import com.danvhae.minecraft.siege.core.enums.SiegeCastleStatus
+import com.danvhae.minecraft.siege.core.events.CastleBuyEvent
 import com.danvhae.minecraft.siege.core.events.CastleDataChangedEvent
 import com.danvhae.minecraft.siege.core.gui.StarBuyConfirmGUI
 import com.danvhae.minecraft.siege.core.gui.StarShopGUI
@@ -33,6 +34,7 @@ class StarBuyConfirmGUIListener :Listener{
             DVHSiegeCore.economy!!.withdrawPlayer(player, parsedGUI.price.toDouble())
             castle.team = SiegePlayer.DATA[player.uniqueId]!!.team
             castle.status = SiegeCastleStatus.PEACEFUL
+            Bukkit.getPluginManager().callEvent(CastleBuyEvent(SiegePlayer[player.uniqueId]!!, parsedGUI.price, castle))
             player.closeInventory()
         }
     }
