@@ -33,6 +33,21 @@ class CastleManagerCommand : CommandExecutor {
             return false
         }
 
+        val siegePlayer = SiegePlayer.DATA[player.uniqueId].let{
+            if(it == null){
+                player.sendMessage("귀하는 공성전에 참여하는 플레이어가 아닌 듯 합니다")
+                return false
+            }else{
+                return@let it
+            }
+        }
+
+        if(castle.team != siegePlayer.team){
+            player.sendMessage("별이 접근을 거부하였습니다")
+            player.sendMessage("해당 별을 소유하고 있는지 확인하여 주십시오")
+            return false
+        }
+
         StarManagementGUI(castle, SiegePlayer[player.uniqueId]?:return false).gui().let {
             player.openInventory(it)
         }
