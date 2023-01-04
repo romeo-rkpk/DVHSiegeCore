@@ -1,14 +1,12 @@
 package com.danvhae.minecraft.siege.core
 
 import com.danvhae.minecraft.siege.core.commands.*
-import com.danvhae.minecraft.siege.core.completers.CastleDataCompleter
-import com.danvhae.minecraft.siege.core.completers.MasterConfigCompleter
-import com.danvhae.minecraft.siege.core.completers.SiegePlayerDataCompleter
-import com.danvhae.minecraft.siege.core.completers.TeamDataCompleter
+import com.danvhae.minecraft.siege.core.completers.*
 import com.danvhae.minecraft.siege.core.gui.StarBuyConfirmGUI
 import com.danvhae.minecraft.siege.core.listeners.*
 import com.danvhae.minecraft.siege.core.utils.FileUtil
 import com.danvhae.minecraft.siege.core.listeners.guis.StarBuyConfirmGUIListener
+import com.danvhae.minecraft.siege.core.listeners.guis.StarManageGUIListener
 import com.danvhae.minecraft.siege.core.listeners.guis.StarShopGUIListener
 import com.danvhae.minecraft.siege.core.objects.*
 import net.milkbowl.vault.economy.Economy
@@ -56,6 +54,7 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(PlayerSignClickListener(), this)
         pm.registerEvents(PlayerNameCacheUpdateListener(), this)
         pm.registerEvents(PlayerHungerListener(), this)
+        pm.registerEvents(StarManageGUIListener(), this)
 
 
         SiegeCastle.load()
@@ -82,6 +81,11 @@ class DVHSiegeCore : JavaPlugin() {
 
         getCommand("멸망판정").executor = StarCastleEliminateNPCCommand()
         getCommand("회의실").executor = MeetingRoomCommand()
+
+        getCommand("별관리").let { cmd->
+            cmd.executor = CastleManagerCommand()
+            cmd.tabCompleter = CastleManageCompleter()
+        }
 
 
         masterConfig = MasterConfig.load()

@@ -13,6 +13,9 @@ commands:
     permission: siegecontrol.player
     description: 회의실로 이동합니다
 
+  별관리:
+    description: 별 관리 UI를 열어봅니다
+
   castle-data:
     description: 별 데이터 제어 명령어
   player-data:
