@@ -12,23 +12,30 @@ import kotlin.collections.ArrayList
 
 class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, team:String?,
                   attackPosition:Location, workPosition:Location,
-                  worldGuardID:String, internal var level:Int = 0){
+                  worldGuardID:String, level:Int = 0){
 
     var status: SiegeCastleStatus = status
         set(value) {
             val temp = field
             field = value
-            Bukkit.getPluginManager().callEvent(CastleDataChangedEvent(id, temp, field, team, team))
+            Bukkit.getPluginManager().callEvent(CastleDataChangedEvent(id, temp, field, team, team, level, level))
             save()
         }
     var team: String? = team
         set(value) {
             val temp = field
             field = value
-            Bukkit.getPluginManager().callEvent(CastleDataChangedEvent(id, status, status, temp, field))
+            Bukkit.getPluginManager().callEvent(CastleDataChangedEvent(id, status, status, temp, field, level, level))
             save()
         }
 
+    internal var level: Int = level
+        set(value){
+            val temp = field
+            field = value
+            Bukkit.getPluginManager().callEvent(CastleDataChangedEvent(id, status, status, team, team, temp, field))
+            save()
+        }
     var attackPosition:Location = attackPosition
         internal set
 
