@@ -79,47 +79,12 @@ class NameUtil {
                 return uuid
             }
             return null
-            /*
-            if (name == null) return null
-            val player = Bukkit.getPlayer(name)
-            if (player != null) return player.uniqueId
-
-            var uuid: UUID? = nameToUUIDCache[name]
-            if (uuid != null) return uuid
-            val json = httpRequest("https://api.mojang.com/users/profiles/minecraft/", name)
-            val `object` = Gson().fromJson(json, JsonObject::class.java)
-            val element = `object`["id"] ?: return null
-            val uuidString = element.toString() ?: return null
-            val addHyphen = addDashToUUIDString(uuidString)
-            uuid = UUID.fromString(addHyphen)
-            val cachedName = Objects.requireNonNull(`object`["name"]).asString
-            nameToUUIDCache.put(cachedName ?: name, uuid)
-            uuidToNameCache.put(uuid, cachedName ?: name)
-            return uuid
-
-             */
         }
 
         fun uuidToName(uuid: UUID?, checkOnline: Boolean = false): String? {
             uuid?:return null
             uuidToNameCache[uuid]?.let { return it }
-            /*
-            if (uuid == null) return null
 
-            val player = Bukkit.getPlayer(uuid)
-            if (player != null) return player.name
-            uuidToNameCache[uuid]?.let { return it }
-            val json = httpRequest("https://sessionserver.mojang.com/session/minecraft/profile/", uuid.toString())
-            val `object` = Gson().fromJson(json, JsonObject::class.java)
-            val element = `object`["name"] ?: return null
-            //result = element.asString
-            //if (result == null) return null
-            element.asString?.let {
-                nameToUUIDCache[it] = uuid
-                uuidToNameCache[uuid] = it
-                return it
-            }?:return null
-             */
             if(checkOnline){
                 Bukkit.getPlayer(uuid)?.let {
                     uuidToNameCache[uuid] = it.name
