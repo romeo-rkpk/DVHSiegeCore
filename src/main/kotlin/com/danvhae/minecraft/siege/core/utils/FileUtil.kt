@@ -11,10 +11,13 @@ import java.nio.file.Paths
 
 class FileUtil {
     companion object{
-        fun initFolder(){
+        fun initFolder(path:String = DVHSiegeCore.FOLDER_PATH){
+            /*
             val folder = File(DVHSiegeCore.FOLDER_PATH)
             if(!folder.exists())
-                folder.mkdirs()
+                folder.mkdirs()*
+
+             */
         }
 
         fun toBytes(obj:Any?):ByteArray?{
