@@ -11,13 +11,11 @@ import java.nio.file.Paths
 
 class FileUtil {
     companion object{
-        fun initFolder(path:String = DVHSiegeCore.FOLDER_PATH){
-            /*
-            val folder = File(DVHSiegeCore.FOLDER_PATH)
-            if(!folder.exists())
-                folder.mkdirs()*
 
-             */
+        private const val DEFAULT_FOLDER_NAME = "DVHSiege"
+        fun initFolder(folderName:String = DEFAULT_FOLDER_NAME){
+            val folder = File("plugins/${folderName}")
+            if(!folder.exists())folder.mkdirs()
         }
 
         fun toBytes(obj:Any?):ByteArray?{
@@ -66,9 +64,10 @@ class FileUtil {
             }
         }
 
-        fun writeTextFile(text:String, fileName:String){
+        fun writeTextFile(text:String, fileName:String, folderName:String = DEFAULT_FOLDER_NAME){
+            initFolder(folderName)
             try{
-                val file = File(DVHSiegeCore.FOLDER_PATH + "/" + fileName)
+                val file = File("plugins/%s/%s".format(folderName, fileName))
                 val stream = FileOutputStream(file)
                 if(!file.exists())file.createNewFile()
                 val bytes = text.toByteArray(StandardCharsets.UTF_8)
@@ -79,9 +78,9 @@ class FileUtil {
             }
         }
 
-        fun readTextFile(fileName: String):String?{
+        fun readTextFile(fileName: String, folderName:String = DEFAULT_FOLDER_NAME):String?{
             return try{
-                val file = File(DVHSiegeCore.FOLDER_PATH + "/" + fileName)
+                val file = File("plugins/%s/%s".format(folderName, fileName))
                 val bytes = ByteArray(file.length().toInt())
                 val stream = FileInputStream(file)
                 stream.read(bytes)
