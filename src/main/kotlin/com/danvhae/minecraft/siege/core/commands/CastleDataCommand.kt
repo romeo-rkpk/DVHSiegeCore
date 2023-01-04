@@ -46,6 +46,7 @@ class CastleDataCommand : CommandExecutor {
                         return@let if(it == null) "없음" else TextUtil.toColor("${SiegeTeam[it]!!.colorPrefix}${it}")
                     }
                 }")
+                sender.sendMessage("레벨 : ${castle.level}")
                 true
             }
         } else if (args.size == 2) {
@@ -84,18 +85,18 @@ class CastleDataCommand : CommandExecutor {
                         return false
                     }
                     castle.team = team.name
-                } /*else if (attribute == "level") {
+                } else if (attribute == "level") {
                     try {
                         val level = value.toInt()
                         if (level < 0 || level > 3) {
                             sender.sendMessage("레벨이 지정된 범위를 벗어났습니다")
                             return false
                         }
-                        castle.setLevel(level)
+                        castle.level = level
                     } catch (e: IllegalArgumentException) {
                         return false
                     }
-                }*/ else if (attribute == "tp-attack") {
+                }else if (attribute == "tp-attack") {
                     if (sender !is Player) {
                         sender.sendMessage("장소를 지정하려면 플레이어로 접속하십시오")
                         return false

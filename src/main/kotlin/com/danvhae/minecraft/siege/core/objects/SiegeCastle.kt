@@ -12,7 +12,7 @@ import kotlin.collections.ArrayList
 
 class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, team:String?,
                   attackPosition:Location, workPosition:Location,
-                  worldGuardID:String){
+                  worldGuardID:String, internal var level:Int = 0){
 
     var status: SiegeCastleStatus = status
         set(value) {
@@ -74,12 +74,12 @@ class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, tea
     }
 
     private class DAO(val id:String, val name:String, val status: SiegeCastleStatus, val team:String?,
-                      val attackPosition: LocationData, val workPosition: LocationData, val worldGuardID: String){
+                      val attackPosition: LocationData, val workPosition: LocationData, val worldGuardID: String, val level:Int = 0){
 
         constructor(castle: SiegeCastle):this(castle.id, castle.name, castle.status,
             castle.team ,
             LocationData(castle.attackPosition),
-            LocationData(castle.workPosition), castle.worldGuardID
+            LocationData(castle.workPosition), castle.worldGuardID, castle.level
         )
 
         companion object{
@@ -105,7 +105,7 @@ class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, tea
                     //Bukkit.getLogger().info("${dao.attackPosition}")
                     list.add(SiegeCastle(dao.id, dao.name, dao.status,
                         dao.team, dao.attackPosition.toLocation()?:continue,
-                        dao.workPosition.toLocation()?:continue, dao.worldGuardID))
+                        dao.workPosition.toLocation()?:continue, dao.worldGuardID, dao.level))
                     Bukkit.getLogger().info("${dao.name} 데이터 로드 완료")
                 }
 
