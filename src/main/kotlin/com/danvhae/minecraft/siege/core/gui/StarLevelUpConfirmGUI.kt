@@ -9,23 +9,17 @@ import org.bukkit.Material
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 
-class StarManagementGUI(val castle:SiegeCastle, val siegePlayer: SiegePlayer) {
-
+class StarLevelUpConfirmGUI(val castle:SiegeCastle, val siegePlayer: SiegePlayer) {
     companion object{
-        const val id = "별 관리"
-        const val ROWS = 3
-
-
+        const val id = "별 레벨업"
         const val STAR_ICON_SLOT = 4
 
-
-        fun parse(inventory: Inventory, player:SiegePlayer):StarManagementGUI?{
-
+        fun parse(inventory: Inventory, player:SiegePlayer):StarLevelUpConfirmGUI?{
 
 
             for(castle in SiegeCastle.DATA.values){
-                if(ChatColor.stripColor(inventory.getItem(STAR_ICON_SLOT).itemMeta.displayName) == castle.name){
-                    return StarManagementGUI(castle, player)
+                if(ChatColor.stripColor(inventory.getItem(StarBuyConfirmGUI.STAR_ICON_POSITION).itemMeta.displayName) == castle.name){
+                    return StarLevelUpConfirmGUI(castle, player)
                 }
             }
 
@@ -33,8 +27,8 @@ class StarManagementGUI(val castle:SiegeCastle, val siegePlayer: SiegePlayer) {
         }
     }
 
-    fun gui():Inventory{
-        val inventory = DVHStaticGUI[id]!!.createInventory()
+    fun gui(): Inventory {
+        val inventory = DVHStaticGUI[StarManagementGUI.id]!!.createInventory()
 
         //var stack: ItemStack = ItemStack(Material.STAINED_GLASS_PANE, 1, 0)
         for(i in 0 until inventory.size)
@@ -46,11 +40,7 @@ class StarManagementGUI(val castle:SiegeCastle, val siegePlayer: SiegePlayer) {
             break
         }
 
-        for(button in DVHStaticGUI[id]!!.buttons)
-            inventory.setItem(button.slot, button.toItemStack())
-
         return inventory
 
     }
-
 }
