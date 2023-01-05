@@ -1,8 +1,10 @@
 package com.danvhae.minecraft.siege.core.commands
 
+import com.danvhae.minecraft.siege.core.enums.SiegeCastleStatus
 import com.danvhae.minecraft.siege.core.gui.StarManagementGUI
 import com.danvhae.minecraft.siege.core.objects.SiegeCastle
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
+import com.danvhae.minecraft.siege.core.utils.Hangul
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -42,11 +44,18 @@ class CastleManagerCommand : CommandExecutor {
             }
         }
 
-        if(castle.team != siegePlayer.team){
-            player.sendMessage("별이 접근을 거부하였습니다")
+        if(castle.team != siegePlayer.team || castle.status == SiegeCastleStatus.INIT){
+            player.sendMessage("${castle.name}${if(Hangul(castle.name.last()).last() != null) "이" else "가"} 접근을 거부하였습니다")
             player.sendMessage("해당 별을 소유하고 있는지 확인하여 주십시오")
             return false
         }
+
+        if(castle.status == SiegeCastleStatus.ELIMINATED){
+            player.sendMessage("${castle.name}${if(Hangul(castle.name.last()).last() != null) "이" else "가"} 응답하지 않습니다")
+            player.sendMessage("아무래도 돌아오지 못하는 길을 간 듯 합니다")
+            return false
+        }
+
 
         StarManagementGUI(castle, SiegePlayer[player.uniqueId]?:return false).gui().let {
             player.openInventory(it)
