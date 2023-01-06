@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.danvhae.minecraft.siege.core"
-version = "1.1.0"
+version = "1.2.0-a1"
 
 repositories {
     mavenCentral()
@@ -37,6 +37,8 @@ dependencies {
     compileOnly(files(env.fetch("CRAFT_BUKKIT_FILE")))
 
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+
+    compileOnly("net.luckperms:api:5.4")
     //compileOnly(files(env.fetch("DP_CORE_FILE")))
     //compileOnly(files(env.fetch("DP_RPG_FILE")))
 
