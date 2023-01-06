@@ -56,6 +56,8 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(PlayerNameCacheUpdateListener(), this)
         pm.registerEvents(PlayerHungerListener(), this)
         pm.registerEvents(StarManageGUIListener(), this)
+        pm.registerEvents(PlayerJoinListener(), this)
+        pm.registerEvents(PlayerRespawnListener(), this)
 
 
         SiegeOperator.load()

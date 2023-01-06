@@ -36,20 +36,27 @@ class MasterConfigurationCommand : CommandExecutor {
                     config.period = it.period
                 }
             }
-            "wildWorld", "period", "sirius", "meetingRoom" ->{
+            "wildWorld", "period", "sirius", "meetingRoom", "slaveStore" ->{
                 if(args.size == 2){
                     when(args[0]){
                         "wildWorld" -> config.wildWorldName = args[1]
-                        "meetingRoom" -> config.meetingRoom = if(sender is Player){
+                        "meetingRoom", "slaveStore" -> config.meetingRoom = if(sender is Player){
                             if(args[1] == "set"){
                                 LocationData(sender.location)
                             }else{
-                                config.meetingRoom
+                                if(args[0] == "meetingRoom")
+                                    config.meetingRoom
+                                else
+                                    config.slaveStore
                             }
                             }else{
-                                sender.sendMessage("이 명령어로 회의실 위치를 조정하려면 플레이어로 접속하세요")
-                                config.meetingRoom
+                                sender.sendMessage("이 명령어로 ${if(args[0] == "meetingRoom") "회의실" else "노예상점"} 위치를 조정하려면 플레이어로 접속하세요")
+                                if(args[0] == "meetingRoom")
+                                    config.meetingRoom
+                                else
+                                    config.slaveStore
                             }
+
 
                         "period" -> args[1].toBooleanStrictOrNull().let { bool->
                             if(bool == null){
@@ -73,6 +80,7 @@ class MasterConfigurationCommand : CommandExecutor {
                     "period" -> Pair("공성 티켓 활성화 여부", config.period.toString())
                     "sirius" -> Pair("시리우스 활성화 여부", config.sirius.toString())
                     "meetingRoom" -> Pair("회의실 위치", config.meetingRoom.toString())
+                    "slaveStore" -> Pair("노예상점 위치", config.slaveStore.toString())
                     else -> null
                 }?.let { (key, value) ->
                     sender.sendMessage("$key : $value")
