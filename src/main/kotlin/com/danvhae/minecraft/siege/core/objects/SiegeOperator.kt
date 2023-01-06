@@ -1,13 +1,15 @@
 package com.danvhae.minecraft.siege.core.objects
 
+import com.danvhae.minecraft.siege.core.enums.SiegeGroup
 import com.danvhae.minecraft.siege.core.utils.FileUtil
 import com.google.gson.Gson
+import net.luckperms.api.LuckPermsProvider
 import java.util.*
 import kotlin.collections.HashMap
 
 class SiegeOperator(val uuid: UUID, val name:String) {
     companion object{
-        private val DATA = HashMap<UUID, SiegeOperator>()
+       internal val DATA = HashMap<UUID, SiegeOperator>()
         operator fun contains(uuid:UUID):Boolean{
             return uuid in DATA.keys
         }
@@ -16,8 +18,10 @@ class SiegeOperator(val uuid: UUID, val name:String) {
 
         fun load(){
             DATA.clear()
-            Gson().fromJson(FileUtil.readTextFile(FILE_NAME), Array<SiegeOperator>::class.java)!!.let {
-                it.forEach { operator -> DATA.put(operator.uuid, operator) }
+            Gson().fromJson(FileUtil.readTextFile(FILE_NAME), Array<SiegeOperator>::class.java)!!.let { it ->
+                it.forEach {
+                    operator -> DATA[operator.uuid] = operator
+                }
             }
         }
     }
