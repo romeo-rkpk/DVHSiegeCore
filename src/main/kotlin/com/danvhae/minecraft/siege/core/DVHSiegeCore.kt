@@ -19,6 +19,7 @@ class DVHSiegeCore : JavaPlugin() {
     companion object{
         const val FOLDER_PATH = "plugins/DVHsiege"
         const val DISTRESS_ZONE_ID = "#DISTRESS"
+
         var masterConfig:MasterConfig = MasterConfig()
             private set
 
@@ -57,6 +58,7 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(StarManageGUIListener(), this)
 
 
+        SiegeOperator.load()
         SiegeCastle.load()
         SiegeTeam.load()
         SiegePlayer.load()
@@ -89,5 +91,6 @@ class DVHSiegeCore : JavaPlugin() {
 
 
         masterConfig = MasterConfig.load()
+
     }
 }
