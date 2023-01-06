@@ -68,8 +68,8 @@ class NameUtil {
                 }
             }
 
-            val json = httpRequest("https://api.mojang.com/users/profiles/minecraft/", name)
-            val jsonObject = Gson().fromJson(json, JsonObject::class.java)
+            val json = httpRequest("https://api.mojang.com/users/profiles/minecraft/", name)?:return null
+            val jsonObject = Gson().fromJson(json, JsonObject::class.java)?:return null
             jsonObject["id"]?.let {
                 val uuid = UUID.fromString(addDashToUUIDString(it.toString()))
                 val getName = jsonObject["name"]!!.asString!!
