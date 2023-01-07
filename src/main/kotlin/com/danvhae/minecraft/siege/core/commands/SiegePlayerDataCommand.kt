@@ -4,6 +4,7 @@ import com.danvhae.minecraft.siege.core.DVHSiegeCore
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
 import com.danvhae.minecraft.siege.core.objects.SiegeTeam
 import com.danvhae.minecraft.siege.core.utils.NameUtil
+import com.danvhae.minecraft.siege.core.utils.PermissionUtil
 import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.ComponentBuilder
@@ -18,6 +19,7 @@ class SiegePlayerDataCommand : CommandExecutor {
         sender: CommandSender?, command: Command?, label: String?, args: Array<out String>?
     ): Boolean {
         sender?:return false; args?:return false
+        if(!PermissionUtil.supportTeamOrConsole(sender))return false
         if(args.isEmpty()){
             sender.sendMessage("/player-data load")
             sender.sendMessage("/player-data info <NAME>")
