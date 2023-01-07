@@ -1,11 +1,8 @@
 package com.danvhae.minecraft.siege.core.objects
 
-import com.danvhae.minecraft.siege.core.enums.SiegeGroup
 import com.danvhae.minecraft.siege.core.utils.FileUtil
 import com.google.gson.Gson
-import net.luckperms.api.LuckPermsProvider
 import java.util.*
-import kotlin.collections.HashMap
 
 class SiegeOperator(val uuid: UUID, val name:String) {
     companion object{

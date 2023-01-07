@@ -5,7 +5,6 @@ import com.danvhae.minecraft.siege.core.utils.TextUtil
 import com.google.gson.Gson
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
-import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.Inventory
 
 class DVHStaticGUI(val title:String, val rows:Int, val buttons:List<DVHGUIButton>) {

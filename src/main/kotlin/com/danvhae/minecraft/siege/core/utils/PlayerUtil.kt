@@ -2,18 +2,9 @@ package com.danvhae.minecraft.siege.core.utils
 
 import com.danvhae.minecraft.siege.core.DVHSiegeCore
 import com.danvhae.minecraft.siege.core.objects.SiegeCastle
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin
-import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.Player
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
-import java.util.*
 
 class PlayerUtil {
     companion object{

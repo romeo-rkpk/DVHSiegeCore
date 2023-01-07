@@ -8,7 +8,6 @@ import com.google.gson.GsonBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SiegeCastle(val id:String, val name:String, status: SiegeCastleStatus, team:String?,
                   attackPosition:Location, workPosition:Location,

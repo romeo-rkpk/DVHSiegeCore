@@ -2,12 +2,9 @@ package com.danvhae.minecraft.siege.core.commands
 
 import com.danvhae.minecraft.siege.core.enums.SiegeCastleStatus
 import com.danvhae.minecraft.siege.core.objects.SiegeCastle
-import com.danvhae.minecraft.siege.core.objects.SiegePlayer
 import com.danvhae.minecraft.siege.core.objects.SiegeTeam
 import com.danvhae.minecraft.siege.core.utils.PermissionUtil
 import com.danvhae.minecraft.siege.core.utils.TextUtil
-import org.bukkit.Bukkit
-import org.bukkit.Location
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender

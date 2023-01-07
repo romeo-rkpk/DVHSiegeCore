@@ -2,14 +2,13 @@ package com.danvhae.minecraft.siege.core
 
 import com.danvhae.minecraft.siege.core.commands.*
 import com.danvhae.minecraft.siege.core.completers.*
-import com.danvhae.minecraft.siege.core.gui.StarBuyConfirmGUI
 import com.danvhae.minecraft.siege.core.listeners.*
-import com.danvhae.minecraft.siege.core.utils.FileUtil
 import com.danvhae.minecraft.siege.core.listeners.guis.StarBuyConfirmGUIListener
 import com.danvhae.minecraft.siege.core.listeners.guis.StarLevelUpGUIListener
 import com.danvhae.minecraft.siege.core.listeners.guis.StarManageGUIListener
 import com.danvhae.minecraft.siege.core.listeners.guis.StarShopGUIListener
 import com.danvhae.minecraft.siege.core.objects.*
+import com.danvhae.minecraft.siege.core.utils.FileUtil
 import net.milkbowl.vault.economy.Economy
 import org.bukkit.Bukkit
 import org.bukkit.plugin.RegisteredServiceProvider
