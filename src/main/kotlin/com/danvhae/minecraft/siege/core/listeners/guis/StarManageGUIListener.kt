@@ -1,6 +1,7 @@
 package com.danvhae.minecraft.siege.core.listeners.guis
 
 import com.danvhae.minecraft.siege.core.enums.SiegeCastleStatus
+import com.danvhae.minecraft.siege.core.gui.StarLevelUpConfirmGUI
 import com.danvhae.minecraft.siege.core.gui.StarManagementGUI
 import com.danvhae.minecraft.siege.core.objects.DVHStaticGUI
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
@@ -47,6 +48,9 @@ class StarManageGUIListener : Listener {
             }
             player.closeInventory()
             return
+        }else if(event.rawSlot == StarManagementGUI.STAR_LEVEL_SLOT){
+            player.closeInventory()
+            player.openInventory(StarLevelUpConfirmGUI(castle, sPlayer).gui())
         }
 
 

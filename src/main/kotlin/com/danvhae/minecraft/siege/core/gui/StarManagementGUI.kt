@@ -17,6 +17,7 @@ class StarManagementGUI(val castle:SiegeCastle, val siegePlayer: SiegePlayer) {
 
 
         const val STAR_ICON_SLOT = 4
+        const val STAR_LEVEL_SLOT = 11
 
 
         fun parse(inventory: Inventory, player:SiegePlayer):StarManagementGUI?{

@@ -6,6 +6,7 @@ import com.danvhae.minecraft.siege.core.gui.StarBuyConfirmGUI
 import com.danvhae.minecraft.siege.core.listeners.*
 import com.danvhae.minecraft.siege.core.utils.FileUtil
 import com.danvhae.minecraft.siege.core.listeners.guis.StarBuyConfirmGUIListener
+import com.danvhae.minecraft.siege.core.listeners.guis.StarLevelUpGUIListener
 import com.danvhae.minecraft.siege.core.listeners.guis.StarManageGUIListener
 import com.danvhae.minecraft.siege.core.listeners.guis.StarShopGUIListener
 import com.danvhae.minecraft.siege.core.objects.*
@@ -58,6 +59,7 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(StarManageGUIListener(), this)
         pm.registerEvents(PlayerJoinListener(), this)
         pm.registerEvents(PlayerRespawnListener(), this)
+        pm.registerEvents(StarLevelUpGUIListener(), this)
 
 
         SiegeOperator.load()

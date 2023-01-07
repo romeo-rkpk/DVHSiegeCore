@@ -18,7 +18,7 @@ class StarLevelUpConfirmGUI(val castle:SiegeCastle, val siegePlayer: SiegePlayer
 
 
             for(castle in SiegeCastle.DATA.values){
-                if(ChatColor.stripColor(inventory.getItem(StarBuyConfirmGUI.STAR_ICON_POSITION).itemMeta.displayName) == castle.name){
+                if(ChatColor.stripColor(inventory.getItem(STAR_ICON_SLOT).itemMeta.displayName) == castle.name){
                     return StarLevelUpConfirmGUI(castle, player)
                 }
             }
@@ -28,7 +28,7 @@ class StarLevelUpConfirmGUI(val castle:SiegeCastle, val siegePlayer: SiegePlayer
     }
 
     fun gui(): Inventory {
-        val inventory = DVHStaticGUI[StarManagementGUI.id]!!.createInventory()
+        val inventory = DVHStaticGUI[id]!!.createInventory()
 
         //var stack: ItemStack = ItemStack(Material.STAINED_GLASS_PANE, 1, 0)
         for(i in 0 until inventory.size)
@@ -38,7 +38,12 @@ class StarLevelUpConfirmGUI(val castle:SiegeCastle, val siegePlayer: SiegePlayer
             if(ChatColor.stripColor(TextUtil.toColor(button.name)) != castle.name)continue
             inventory.setItem(STAR_ICON_SLOT, button.toItemStack())
             break
+
+
         }
+
+        for(button in DVHStaticGUI[id]!!.buttons)
+            inventory.setItem(button.slot, button.toItemStack())
 
         return inventory
 
