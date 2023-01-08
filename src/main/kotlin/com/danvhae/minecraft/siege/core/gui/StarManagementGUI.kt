@@ -3,7 +3,6 @@ package com.danvhae.minecraft.siege.core.gui
 import com.danvhae.minecraft.siege.core.abstracts.WhiteBackgroundStarGUI
 import com.danvhae.minecraft.siege.core.objects.SiegeCastle
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
-import org.bukkit.ChatColor
 import org.bukkit.inventory.Inventory
 
 class StarManagementGUI(override val castle:SiegeCastle, val siegePlayer: SiegePlayer) : WhiteBackgroundStarGUI(id,  castle){
