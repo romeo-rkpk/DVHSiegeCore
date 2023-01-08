@@ -48,15 +48,18 @@ class MasterConfigurationCommand : CommandExecutor {
                 if(args.size == 2){
                     when(args[0]){
                         "wildWorld" -> config.wildWorldName = args[1]
-                        "meetingRoom", "slaveStore" -> config.meetingRoom = if(sender is Player){
-                            if(args[1] == "set"){
-                                LocationData(sender.location)
-                            }else{
-                                if(args[0] == "meetingRoom")
-                                    config.meetingRoom
-                                else
-                                    config.slaveStore
-                            }
+
+                        /*
+                        "meetingRoom", "slaveStore" -> {
+                            config.meetingRoom = if(sender is Player){
+                                if(args[1] == "set"){
+                                    LocationData(sender.location)
+                                }else{
+                                    if(args[0] == "meetingRoom")
+                                        config.meetingRoom
+                                    else
+                                        config.slaveStore
+                                }
                             }else{
                                 sender.sendMessage("이 명령어로 ${if(args[0] == "meetingRoom") "회의실" else "노예상점"} 위치를 조정하려면 플레이어로 접속하세요")
                                 if(args[0] == "meetingRoom")
@@ -64,6 +67,30 @@ class MasterConfigurationCommand : CommandExecutor {
                                 else
                                     config.slaveStore
                             }
+                        }
+
+                         */
+                        "meetingRoom", "slaveStore" ->{
+                            if(args[1] == "set"){
+                                if(sender !is Player){
+                                    sender.sendMessage("플레이어만이 위치를 조정할 수 있습니다.")
+                                    return false
+                                }
+                                if(args[0] == "meetingRoom"){
+                                    config.meetingRoom = LocationData(sender.location)
+                                }else{
+                                    config.slaveStore = LocationData(sender.location)
+                                }
+
+                            }
+
+                            /*
+                            sender.sendMessage((if(args[0] == "meetingRoom") "회의실" else "노예상점") + "위치 : ${
+                                if(args[0] == "meetingRoom") config.meetingRoom.toString() else config.slaveStore.toString()
+                            }")
+
+                             */
+                        }
 
 
                         "period" -> args[1].toBooleanStrictOrNull().let { bool->
