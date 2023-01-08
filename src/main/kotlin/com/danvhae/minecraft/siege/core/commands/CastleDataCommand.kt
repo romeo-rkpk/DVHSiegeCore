@@ -16,7 +16,10 @@ class CastleDataCommand : CommandExecutor {
         sender: CommandSender?, command: Command?, label: String?, args: Array<out String>?
     ): Boolean {
         sender?:return false; args?:return false
-        if(!PermissionUtil.supportTeamOrConsole(sender))return false
+        if(!PermissionUtil.supportTeamOrConsole(sender)) {
+            sender.sendMessage("명령어를 실행할 권한이 없습니다")
+            return false
+        }
 
 
         if (args.isEmpty()) {

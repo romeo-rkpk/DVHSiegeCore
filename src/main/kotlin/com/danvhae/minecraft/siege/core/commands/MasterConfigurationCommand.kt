@@ -14,7 +14,10 @@ class MasterConfigurationCommand : CommandExecutor {
         sender: CommandSender?, command: Command?, label: String?, args: Array<out String>?
     ): Boolean {
         sender?:return false; args?:return false
-        if(!PermissionUtil.supportTeamOrConsole(sender))return false
+        if(!PermissionUtil.supportTeamOrConsole(sender)) {
+            sender.sendMessage("명령어를 실행할 권한이 없습니다")
+            return false
+        }
         val config = DVHSiegeCore.masterConfig
 
         if(args.isEmpty()){
@@ -22,19 +25,24 @@ class MasterConfigurationCommand : CommandExecutor {
             sender.sendMessage("master-config load")
             sender.sendMessage("master-config wildWorld [<worldName>]")
             sender.sendMessage("master-config period [<value>]")
-            sender.sendMessage("maste-config sirius [<value>]")
+            sender.sendMessage("master-config sirius [<value>]")
             return true
         }
 
         when(args[0]){
-            "save"->MasterConfig.save(config)
+            "save"-> {
+                MasterConfig.save(config)
+                sender.sendMessage("설정 정보를 저장하였습니다")
+            }
             "load"->{
                 MasterConfig.load().let {
                     config.wildWorldName = it.wildWorldName
                     config.meetingRoom = it.meetingRoom
                     config.sirius = it.sirius
                     config.period = it.period
+                    config.slaveStore = it.slaveStore
                 }
+                sender.sendMessage("설정 엊보를 불러왔습니다")
             }
             "wildWorld", "period", "sirius", "meetingRoom", "slaveStore" ->{
                 if(args.size == 2){
