@@ -56,7 +56,15 @@ class StarLevelUpGUIListener :Listener{
 
         //돈 빼 간 다음에
         castle.level = requestedLevel
-        val price = 0
+        val price = 1
+
+        val eco = DVHSiegeCore.economy!!
+        if(eco.getBalance(player).toInt() < price){
+            player.closeInventory()
+            player.sendMessage("스타가 부족합니다")
+            return
+        }
+        eco.withdrawPlayer(player, price.toDouble())
         Bukkit.getPluginManager().callEvent(CastleLevelUpRequestedEvent(
             sPlayer, castle, requestedLevel, price
         ))
