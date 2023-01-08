@@ -56,7 +56,12 @@ class StarLevelUpGUIListener :Listener{
 
         //돈 빼 간 다음에
         castle.level = requestedLevel
-        val price = 1
+        val price = when(requestedLevel){
+            1 -> 10000
+            2 -> 20000
+            3 -> 30000
+            else -> return
+        }
 
         val eco = DVHSiegeCore.economy!!
         if(eco.getBalance(player).toInt() < price){
