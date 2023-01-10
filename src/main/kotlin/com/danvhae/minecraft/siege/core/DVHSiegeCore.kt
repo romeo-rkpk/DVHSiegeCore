@@ -2,11 +2,11 @@ package com.danvhae.minecraft.siege.core
 
 import com.danvhae.minecraft.siege.core.commands.*
 import com.danvhae.minecraft.siege.core.completers.*
+import com.danvhae.minecraft.siege.core.gui.StarBuyConfirmGUI
+import com.danvhae.minecraft.siege.core.gui.StarLevelUpConfirmGUI
+import com.danvhae.minecraft.siege.core.gui.StarShopGUI
 import com.danvhae.minecraft.siege.core.listeners.*
-import com.danvhae.minecraft.siege.core.listeners.guis.StarBuyConfirmGUIListener
-import com.danvhae.minecraft.siege.core.listeners.guis.StarLevelUpGUIListener
-import com.danvhae.minecraft.siege.core.listeners.guis.StarManageGUIListener
-import com.danvhae.minecraft.siege.core.listeners.guis.StarShopGUIListener
+import com.danvhae.minecraft.siege.core.listeners.guis.*
 import com.danvhae.minecraft.siege.core.objects.*
 import com.danvhae.minecraft.siege.core.utils.FileUtil
 import net.milkbowl.vault.economy.Economy
@@ -59,6 +59,10 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(PlayerJoinListener(), this)
         pm.registerEvents(PlayerRespawnListener(), this)
         pm.registerEvents(StarLevelUpGUIListener(), this)
+
+        listOf(StarBuyConfirmGUI.id, StarShopGUI.id, StarLevelUpConfirmGUI.id).forEach{id ->
+            pm.registerEvents(PeacefulTimeOnlyGUIListener(id), this)
+        }
 
 
         SiegeOperator.load()
