@@ -5,6 +5,7 @@ import com.danvhae.minecraft.siege.core.events.CastleLevelUpRequestedEvent
 import com.danvhae.minecraft.siege.core.gui.StarLevelUpConfirmGUI
 import com.danvhae.minecraft.siege.core.objects.DVHStaticGUI
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
+import com.danvhae.minecraft.siege.core.utils.EconomyUtil
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
@@ -63,13 +64,13 @@ class StarLevelUpGUIListener :Listener{
             else -> return
         }
 
-        val eco = DVHSiegeCore.economy!!
-        if(eco.getBalance(player).toInt() < price){
+        if(EconomyUtil.balance(player) < price){
             player.closeInventory()
             player.sendMessage("스타가 부족합니다")
             return
         }
-        eco.withdrawPlayer(player, price.toDouble())
+        //eco.withdrawPlayer(player, price.toDouble())
+        EconomyUtil.withDraw(player, price, "${castle.name} ${requestedLevel}레벨 요청", DVHSiegeCore.instance!!)
         Bukkit.getPluginManager().callEvent(CastleLevelUpRequestedEvent(
             sPlayer, castle, requestedLevel, price
         ))

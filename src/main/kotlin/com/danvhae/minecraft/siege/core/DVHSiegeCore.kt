@@ -23,10 +23,6 @@ class DVHSiegeCore : JavaPlugin() {
         var masterConfig:MasterConfig = MasterConfig()
             private set
 
-        var economy: Economy? = null
-            get(){return field!!}
-            private set
-
         var instance: DVHSiegeCore? = null
             get() {return field!!}
             private set
@@ -38,10 +34,13 @@ class DVHSiegeCore : JavaPlugin() {
         instance = this
         FileUtil.initFolder()
 
+        /*
         if(server.pluginManager.getPlugin("Vault") != null){
             val resp:RegisteredServiceProvider<Economy>? = server.servicesManager.getRegistration(Economy::class.java)
             economy = resp?.provider!!
         }
+
+         */
 
         Bukkit.getLogger().info("단츄 보라비 해야 화이팅!")
 
