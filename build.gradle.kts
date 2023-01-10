@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.danvhae.minecraft.siege.core"
-version = "1.3.5"
+version = "1.4.1"
 
 repositories {
     mavenCentral()
