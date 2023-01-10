@@ -46,7 +46,7 @@ class StarLevelUpGUIListener :Listener{
         val displayName = ChatColor.stripColor(meta.displayName)?:return
         val (requestedStr) = regex.find(displayName)!!.destructured
 
-        Bukkit.getLogger().warning(requestedStr)
+        //Bukkit.getLogger().warning(requestedStr)
         val requestedLevel = requestedStr.toIntOrNull()?:return
         val castle = levelUpGUI.castle
         if(castle.team != sPlayer.team)return
@@ -73,5 +73,7 @@ class StarLevelUpGUIListener :Listener{
         Bukkit.getPluginManager().callEvent(CastleLevelUpRequestedEvent(
             sPlayer, castle, requestedLevel, price
         ))
+        player.closeInventory()
+        player.sendMessage("별 레벨업 결제가 완료되었습니다.")
     }
 }
