@@ -1,5 +1,6 @@
 package com.danvhae.minecraft.siege.core.listeners.guis
 
+import com.danvhae.minecraft.siege.core.DVHSiegeCore
 import com.danvhae.minecraft.siege.core.events.SiegeStartEvent
 import com.danvhae.minecraft.siege.core.objects.DVHStaticGUI
 import org.bukkit.Bukkit
@@ -16,6 +17,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent
 class PeacefulTimeOnlyGUIListener(private val id:String) : Listener{
     @EventHandler
     fun onSiegeStarted(event:SiegeStartEvent){
+        if(!DVHSiegeCore.masterConfig.period)return
         for (player in Bukkit.getOnlinePlayers()) {
             val inventory = player.openInventory?.topInventory?:continue
             val gui = DVHStaticGUI.parseGUI(inventory)?:continue
@@ -27,6 +29,7 @@ class PeacefulTimeOnlyGUIListener(private val id:String) : Listener{
 
     @EventHandler
     fun onDuringSiege(event:InventoryOpenEvent){
+        if(!DVHSiegeCore.masterConfig.period)return
         val gui = DVHStaticGUI.parseGUI(event.inventory)?:return
         if(gui.id() != id)return
         event.isCancelled = true
