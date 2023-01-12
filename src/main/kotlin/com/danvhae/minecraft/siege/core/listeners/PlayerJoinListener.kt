@@ -1,6 +1,7 @@
 package com.danvhae.minecraft.siege.core.listeners
 
 import com.danvhae.minecraft.siege.core.DVHSiegeCore
+import com.danvhae.minecraft.siege.core.commands.TimerCommand
 import com.danvhae.minecraft.siege.core.objects.SiegeOperator
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
 import org.bukkit.event.EventHandler
@@ -16,5 +17,10 @@ class PlayerJoinListener : Listener {
 
         player.teleport(DVHSiegeCore.masterConfig.slaveStore.toLocation()!!)
 
+    }
+
+    @EventHandler
+    fun onPlayerJoinWithBar(event: PlayerJoinEvent){
+        TimerCommand.addPlayer(event.player)
     }
 }

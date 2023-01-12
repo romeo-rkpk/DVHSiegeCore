@@ -59,6 +59,7 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(PlayerRespawnListener(), this)
         pm.registerEvents(StarLevelUpGUIListener(), this)
         pm.registerEvents(IllegalTPEnderWorldListener(), this)
+        pm.registerEvents(PlayerQuitListener(), this)
 
         listOf(StarBuyConfirmGUI.id, StarShopGUI.id, StarLevelUpConfirmGUI.id).forEach{id ->
             pm.registerEvents(PeacefulTimeOnlyGUIListener(id), this)
@@ -96,6 +97,11 @@ class DVHSiegeCore : JavaPlugin() {
         getCommand("별관리").let { cmd->
             cmd.executor = CastleManagerCommand()
             cmd.tabCompleter = CastleManageCompleter()
+        }
+
+        getCommand("siege-timer").let { cmd->
+            cmd.executor = TimerCommand()
+            cmd.tabCompleter = TimerCompleter()
         }
 
 

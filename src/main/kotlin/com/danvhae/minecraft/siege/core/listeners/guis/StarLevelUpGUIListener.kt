@@ -58,9 +58,9 @@ class StarLevelUpGUIListener :Listener{
         //돈 빼 간 다음에
         castle.level = requestedLevel
         val price = when(requestedLevel){
-            1 -> 10000
-            2 -> 20000
-            3 -> 30000
+            1 -> 500_0000
+            2 -> 1500_0000
+            3 -> 3000_0000
             else -> return
         }
 

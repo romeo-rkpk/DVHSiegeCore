@@ -12,9 +12,14 @@ class IllegalTPEnderWorldListener : Listener {
     fun onTeleportToEndWorld(event:PlayerTeleportEvent){
         if(DVHSiegeCore.masterConfig.sirius)return
         if(event.to.world.environment != World.Environment.THE_END) return
+        event.isCancelled = true
+        event.player.teleport(DVHSiegeCore.masterConfig.meetingRoom.toLocation()!!)
+        /*
         event.player.teleport(DVHSiegeCore.masterConfig.meetingRoom.toLocation()!!)
         Bukkit.getScheduler().runTask(DVHSiegeCore.instance){
             event.player.health = 0.0
         }
+
+         */
     }
 }
