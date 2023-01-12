@@ -31,6 +31,8 @@ commands:
 
   멸망판정:
     description: 별 멸망 판정을 위한 npc 명령어
+  tower-notify:
+    description: 탑에서 몬스터가 사망했음을 판단하기 위한 명령어
 permissions:
   siegecontrol.support:
     default: false

@@ -89,6 +89,8 @@ class DVHSiegeCore : JavaPlugin() {
         }
 
         getCommand("멸망판정").executor = StarCastleEliminateNPCCommand()
+        getCommand("tower-notify").executor = TowerMonsterNPCCommand()
+
         getCommand("회의실").executor = MeetingRoomCommand()
 
         getCommand("별관리").let { cmd->
