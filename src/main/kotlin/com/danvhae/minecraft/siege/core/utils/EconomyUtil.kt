@@ -21,12 +21,12 @@ class EconomyUtil {
 
         fun withDraw(player: Player, amount:Int, description: String, instance: JavaPlugin){
             economy.withdrawPlayer(player, amount.toDouble())
-            log("출금", description, amount, instance)
+            log("출금 - ${player.name}", description, amount, instance)
         }
 
         fun deposit(player: Player, amount: Int, description: String, instance: JavaPlugin){
             economy.depositPlayer(player, amount.toDouble())
-            log("입금", description, amount, instance)
+            log("입금 - ${player.name}", description, amount, instance)
         }
 
         fun balance(player:Player): Int{
