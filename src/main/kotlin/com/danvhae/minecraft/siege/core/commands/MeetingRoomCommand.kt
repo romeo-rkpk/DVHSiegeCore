@@ -15,15 +15,9 @@ class MeetingRoomCommand : CommandExecutor {
         sender: CommandSender?, command: Command?, label: String?, args: Array<out String>?
     ): Boolean {
         val player = sender as? Player ?: return false
-        val sPlayer = SiegePlayer[player.uniqueId]
-        if(sPlayer != null){
-            for(castle in LocationUtil.locationAtStars(player.location)){
-                if(castle.status !in listOf(SiegeCastleStatus.UNDER_BATTLE, SiegeCastleStatus.PEACEFUL))continue
-                if(castle.team != sPlayer.team){
-                    player.sendMessage("공성 중에는 이 명령어를 실행할 수 없습니다.")
-                    return false
-                }
-            }
+        if(LocationUtil.attacking(player)){
+            player.sendMessage("공성 중에는 이 명령어를 사용할 수 없습니다.")
+            return false
         }
         player.teleport(DVHSiegeCore.masterConfig.meetingRoom.toLocation()!!)
         return true
