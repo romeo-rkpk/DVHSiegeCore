@@ -74,7 +74,9 @@ class SiegePlayerDataCommand : CommandExecutor {
                                 //sender.sendMessage("UUID : ${player.playerUUID}")
 
                             }else{
-                                SiegePlayer.DATA.remove(uuid)
+                                Bukkit.getScoreboardManager().mainScoreboard.getTeam(player.team).removeEntry(
+                                    NameUtil.uuidToName(uuid)!!
+                                )
                                 sender.sendMessage("${NameUtil.uuidToName(uuid, true)}님 데이터를 제거하였습니다.")
                             }
                         }
