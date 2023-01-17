@@ -71,6 +71,7 @@ class DVHSiegeCore : JavaPlugin() {
         SiegeTeam.load()
         SiegePlayer.load()
         DVHStaticGUI.load()
+        WorldConfiguration.load()
 
         getCommand("castle-data").executor = CastleDataCommand()
         getCommand("castle-data").tabCompleter = CastleDataCompleter()
@@ -102,6 +103,10 @@ class DVHSiegeCore : JavaPlugin() {
         getCommand("siege-timer").let { cmd->
             cmd.executor = TimerCommand()
             cmd.tabCompleter = TimerCompleter()
+        }
+
+        getCommand("world-config").let { cmd->
+            cmd.executor = WorldDataCommand()
         }
 
 

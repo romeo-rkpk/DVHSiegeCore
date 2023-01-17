@@ -35,7 +35,10 @@ commands:
     description: 탑에서 몬스터가 사망했음을 판단하기 위한 명령어
 
   siege-timer:
-    description: 
+    description: just timer
+
+  world-config:
+    description: just config
 permissions:
   siegecontrol.support:
     default: false
