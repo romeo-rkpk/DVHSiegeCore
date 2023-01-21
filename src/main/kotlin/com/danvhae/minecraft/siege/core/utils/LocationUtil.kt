@@ -1,5 +1,6 @@
 package com.danvhae.minecraft.siege.core.utils
 
+import com.danvhae.minecraft.siege.core.DVHSiegeCore
 import com.danvhae.minecraft.siege.core.enums.SiegeCastleStatus
 import com.danvhae.minecraft.siege.core.objects.SiegeCastle
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
@@ -14,6 +15,8 @@ class LocationUtil {
             val result = HashSet<String>()
             for(r in set.regions?:return result)
                 result.add(r.id)
+            if(PlayerUtil.isDistressZone(location))result.add(DVHSiegeCore.DISTRESS_ZONE_ID)
+
             return result
         }
 
