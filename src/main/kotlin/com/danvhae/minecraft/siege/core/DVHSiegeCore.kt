@@ -60,6 +60,7 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(StarLevelUpGUIListener(), this)
         pm.registerEvents(IllegalTPEnderWorldListener(), this)
         pm.registerEvents(PlayerQuitListener(), this)
+        pm.registerEvents(DistressListener(), this)
 
         listOf(StarBuyConfirmGUI.id, StarShopGUI.id, StarLevelUpConfirmGUI.id).forEach{id ->
             pm.registerEvents(PeacefulTimeOnlyGUIListener(id), this)
