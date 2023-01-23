@@ -3,7 +3,8 @@ package com.danvhae.minecraft.siege.core.utils
 class DVHStack<T> {
 
     private var top:Node? = null
-    private var count = 0
+    var count = 0
+        private set
 
     fun push(value:T){
         top = Node(value, top)
@@ -16,6 +17,10 @@ class DVHStack<T> {
             top = it.link
             return@let it.value
         }
+    }
+
+    fun isEmpty():Boolean{
+        return count == 0
     }
 
     fun pick():T?{
