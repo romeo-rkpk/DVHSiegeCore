@@ -2,6 +2,7 @@ package com.danvhae.minecraft.siege.core.utils
 
 import com.danvhae.minecraft.siege.core.DVHSiegeCore
 import com.danvhae.minecraft.siege.core.objects.SiegeCastle
+import com.danvhae.minecraft.siege.core.objects.WorldConfiguration
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin
 import org.bukkit.Location
 import org.bukkit.entity.Player
@@ -21,7 +22,10 @@ class PlayerUtil {
         }
 
         fun isDistressZone(location: Location):Boolean{
-            if(location.world.name !in listOf("star", "DIM1"))return false
+            //if(location.world.name !in listOf("star", "DIM1"))return false
+            WorldConfiguration[location.world]?.let{
+                if(!it.castleWorld) return false
+            }?:return false
             //location이 worldguard 중 어느 하나 안에 있으면 성공
             for(castle in SiegeCastle.DATA.values){
                 if(location.world != castle.attackPosition.world)continue
