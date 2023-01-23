@@ -24,7 +24,7 @@ class PlayerMoveRegionListener : Listener {
         compareAndRaiseEvent(LocationUtil.worldGuardIds(event.entity.location), HashSet(), event.entity.player)
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     fun onRespawn(event:PlayerRespawnEvent){
         compareAndRaiseEvent(HashSet(), LocationUtil.worldGuardIds(event.respawnLocation), event.player)
     }
