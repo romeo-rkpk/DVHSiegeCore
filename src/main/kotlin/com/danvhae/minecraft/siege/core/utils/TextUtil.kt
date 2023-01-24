@@ -13,7 +13,25 @@ class TextUtil {
         }
 
         fun onlyStartsWith(args:ArrayList<String>, str:String) : ArrayList<String>{
-            args.removeIf{s -> !s.lowercase().startsWith(str.lowercase())}
+            fun splitHangul(s:String):String{
+                val buffer = StringBuffer()
+                for(c in s){
+                    val hangul = Hangul(c)
+                    if(!hangul.isHangul()) {
+                        buffer.append(c)
+                        continue
+                    }
+                    for (it in listOf(hangul.first(), hangul.second(), hangul.last())) {
+                        buffer.append(it?:continue)
+                    }
+                }
+                return buffer.toString()
+            }
+
+            val splitStr = splitHangul(str.lowercase())
+            args.removeIf{
+                return@removeIf !splitHangul(it.lowercase()).startsWith(splitStr)
+            }
             return args
         }
 
