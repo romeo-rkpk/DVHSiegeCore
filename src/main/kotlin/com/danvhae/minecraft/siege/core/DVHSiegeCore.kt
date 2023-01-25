@@ -9,9 +9,7 @@ import com.danvhae.minecraft.siege.core.listeners.*
 import com.danvhae.minecraft.siege.core.listeners.guis.*
 import com.danvhae.minecraft.siege.core.objects.*
 import com.danvhae.minecraft.siege.core.utils.FileUtil
-import net.milkbowl.vault.economy.Economy
 import org.bukkit.Bukkit
-import org.bukkit.plugin.RegisteredServiceProvider
 import org.bukkit.plugin.java.JavaPlugin
 
 class DVHSiegeCore : JavaPlugin() {
@@ -56,7 +54,7 @@ class DVHSiegeCore : JavaPlugin() {
         pm.registerEvents(PlayerHungerListener(), this)
         pm.registerEvents(StarManageGUIListener(), this)
         pm.registerEvents(PlayerJoinListener(), this)
-        pm.registerEvents(PlayerRespawnListener(), this)
+        pm.registerEvents(SlaveInitListener(), this)
         pm.registerEvents(StarLevelUpGUIListener(), this)
         pm.registerEvents(IllegalTPEnderWorldListener(), this)
         pm.registerEvents(PlayerQuitListener(), this)
