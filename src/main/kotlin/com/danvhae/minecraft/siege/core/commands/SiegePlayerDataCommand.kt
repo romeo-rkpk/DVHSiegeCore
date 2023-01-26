@@ -4,6 +4,9 @@ import com.danvhae.minecraft.siege.core.DVHSiegeCore
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
 import com.danvhae.minecraft.siege.core.objects.SiegeTeam
 import com.danvhae.minecraft.siege.core.utils.NameUtil
+import com.danvhae.minecraft.siege.core.utils.PermissionUtil
+import net.md_5.bungee.api.chat.ClickEvent
+import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -14,6 +17,10 @@ class SiegePlayerDataCommand : CommandExecutor {
         sender: CommandSender?, command: Command?, label: String?, args: Array<out String>?
     ): Boolean {
         sender?:return false; args?:return false
+        if(!PermissionUtil.supportTeamOrConsole(sender)) {
+            sender.sendMessage("권한이 없습니다.")
+            return false
+        }
         if(args.isEmpty()){
             sender.sendMessage("/player-data load")
             sender.sendMessage("/player-data info <NAME>")
@@ -40,6 +47,18 @@ class SiegePlayerDataCommand : CommandExecutor {
                             return@runTask
                         }
 
+                        NameUtil.uuidToName(uuid)!!.let { name->
+                            TextComponent("Name: $name").let { txtComp ->
+                                txtComp.clickEvent = ClickEvent(ClickEvent.Action.OPEN_URL, "http://danvhae.com/${name}")
+                                sender.spigot().sendMessage(txtComp)
+                            }
+                        }
+                        TextComponent("UUID : $uuid").let { textComp ->
+                            textComp.clickEvent = ClickEvent(ClickEvent.Action.OPEN_URL, "http://danvhae.com/${uuid}")
+                            sender.spigot().sendMessage(textComp)
+                        }
+
+
 
                         SiegePlayer[uuid].let { player ->
                             if (player == null) {
@@ -52,8 +71,12 @@ class SiegePlayerDataCommand : CommandExecutor {
                                 sender.sendMessage("소속 : ${player.team}")
                                 sender.sendMessage("성주 여부 : ${player.isOwner}")
                                 sender.sendMessage("별칭 : ${player.alias}")
-                                sender.sendMessage("UUID : ${player.playerUUID}")
-                            }else{
+                                //sender.sendMessage("UUID : ${player.playerUUID}")
+
+                            }else if(args[0] == "remove"){
+                                Bukkit.getScoreboardManager().mainScoreboard.getTeam(player.team).removeEntry(
+                                    NameUtil.uuidToName(uuid)!!
+                                )
                                 SiegePlayer.DATA.remove(uuid)
                                 sender.sendMessage("${NameUtil.uuidToName(uuid, true)}님 데이터를 제거하였습니다.")
                             }
@@ -100,6 +123,8 @@ class SiegePlayerDataCommand : CommandExecutor {
                     sender.sendMessage("올바르지 않은 플레이어 명입니다")
                     return@runTask
                 }
+
+
 
                 val player = SiegePlayer[uuid]
                 if(player == null){

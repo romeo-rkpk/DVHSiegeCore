@@ -19,17 +19,20 @@ class Hangul(val c:Char) {
 
     fun first():Char?{
         if(!isHangul())return null
-        return FIRST_CODES[(c - HANGUL_FIRST) / DIV]
+        if(c in FIRST_CODES)return c
+        return FIRST_CODES.getOrNull((c - HANGUL_FIRST) / DIV)
     }
 
     fun second():Char?{
         if(!isHangul()) return null
-        return SECOND_CODES[((c - HANGUL_FIRST) % DIV) / 28]
+        if(c in SECOND_CODES)return c
+        return SECOND_CODES.getOrNull(((c - HANGUL_FIRST) % DIV) / 28)
     }
 
     fun last():Char?{
         if(!isHangul())return null
-        return LAST_CODES[(c - HANGUL_FIRST) % 28]
+        if(c in LAST_CODES && c !in FIRST_CODES)return c
+        return LAST_CODES.getOrNull((c - HANGUL_FIRST) % 28)
 
     }
 }

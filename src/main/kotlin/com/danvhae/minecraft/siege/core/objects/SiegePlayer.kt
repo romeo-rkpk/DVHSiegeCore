@@ -1,6 +1,7 @@
 package com.danvhae.minecraft.siege.core.objects
 
 import com.danvhae.minecraft.siege.core.DVHSiegeCore
+import com.danvhae.minecraft.siege.core.enums.SiegeGroup
 import com.danvhae.minecraft.siege.core.utils.FileUtil
 import com.danvhae.minecraft.siege.core.utils.NameUtil
 import com.google.gson.Gson
@@ -55,10 +56,37 @@ class SiegePlayer(val playerUUID:UUID, team: String, isOwner:Boolean, alias:Stri
         }
 
         fun load(){
+            val cache = HashMap<UUID, SiegeGroup>()
+            for(data in DATA.values){
+                cache[data.playerUUID] = SiegeGroup.DEFAULT
+            }
+            val uuids = HashSet<UUID>()
+            Bukkit.getWhitelistedPlayers().clear()
+
             DATA.clear()
+            SiegeOperator.load()
+            for(operator in SiegeOperator.DATA.values){
+                cache[operator.uuid] = SiegeGroup.OPERATOR
+                uuids.add(operator.uuid)
+            }
+
             val players = DAO.load()
-            for(p in players)
+            for(p in players) {
                 DATA[p.playerUUID] = p
+                cache[p.playerUUID] = if(p.isOwner) SiegeGroup.OWNER else SiegeGroup.WORKER
+                uuids.add(p.playerUUID)
+            }
+
+            for(c in cache){
+                c.value.setGroup(c.key)
+            }
+
+            uuids.forEach{uuid ->
+                Bukkit.getScheduler().runTask(DVHSiegeCore.instance){
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "whitelist add ${NameUtil.uuidToName(uuid)}")
+                }
+            }
+
         }
 
         fun save(){

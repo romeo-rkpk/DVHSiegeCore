@@ -1,6 +1,7 @@
 package com.danvhae.minecraft.siege.core.completers
 
 import com.danvhae.minecraft.siege.core.objects.SiegeTeam
+import com.danvhae.minecraft.siege.core.utils.PermissionUtil
 import com.danvhae.minecraft.siege.core.utils.TextUtil
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
@@ -12,6 +13,7 @@ class SiegePlayerDataCompleter : TabCompleter {
         sender: CommandSender?, command: Command?, alias: String?, args: Array<out String>?
     ): MutableList<String> {
         sender?:return arrayListOf();args?:return arrayListOf()
+        if(!PermissionUtil.supportTeamOrConsole(sender))return arrayListOf()
         if(args.isEmpty())return arrayListOf()
         val result = ArrayList<String>()
 

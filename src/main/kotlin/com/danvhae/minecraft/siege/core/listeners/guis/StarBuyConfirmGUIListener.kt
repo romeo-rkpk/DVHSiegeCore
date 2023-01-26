@@ -8,6 +8,7 @@ import com.danvhae.minecraft.siege.core.gui.StarBuyConfirmGUI
 import com.danvhae.minecraft.siege.core.gui.StarShopGUI
 import com.danvhae.minecraft.siege.core.objects.DVHStaticGUI
 import com.danvhae.minecraft.siege.core.objects.SiegePlayer
+import com.danvhae.minecraft.siege.core.utils.EconomyUtil
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -30,8 +31,8 @@ class StarBuyConfirmGUIListener :Listener{
             val parsedGUI = StarBuyConfirmGUI.parse(event.inventory, player)!!
             val castle = parsedGUI.castle
             if(parsedGUI.price == null)return
-            if(parsedGUI.price > DVHSiegeCore.economy!!.getBalance(player))return
-            DVHSiegeCore.economy!!.withdrawPlayer(player, parsedGUI.price.toDouble())
+            if(parsedGUI.price > EconomyUtil.balance(player))return
+            EconomyUtil.withDraw(player, parsedGUI.price, "${castle.name} 구매", DVHSiegeCore.instance!! )
             castle.team = SiegePlayer.DATA[player.uniqueId]!!.team
             castle.status = SiegeCastleStatus.PEACEFUL
             Bukkit.getPluginManager().callEvent(CastleBuyEvent(SiegePlayer[player.uniqueId]!!, parsedGUI.price, castle))
