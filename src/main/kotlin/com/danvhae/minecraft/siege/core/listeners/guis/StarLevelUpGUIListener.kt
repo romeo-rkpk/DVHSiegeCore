@@ -55,8 +55,6 @@ class StarLevelUpGUIListener :Listener{
         if(castle.level >= requestedLevel)return
         else if(requestedLevel - castle.level > 1)return
 
-        //돈 빼 간 다음에
-        castle.level = requestedLevel
         val price = when(requestedLevel){
             1 -> 1000_0000
             2 -> 3000_0000
@@ -74,6 +72,9 @@ class StarLevelUpGUIListener :Listener{
         Bukkit.getPluginManager().callEvent(CastleLevelUpRequestedEvent(
             sPlayer, castle, requestedLevel, price
         ))
+
+
+        castle.level = requestedLevel
         player.closeInventory()
         player.sendMessage("별 레벨업 결제가 완료되었습니다.")
     }
