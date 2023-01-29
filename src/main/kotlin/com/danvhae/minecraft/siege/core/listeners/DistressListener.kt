@@ -21,6 +21,7 @@ class DistressListener : Listener {
         SiegePlayer[event.player.uniqueId]?:return
         COUNTER[event.player.uniqueId] = 0
         TASK_ID[event.player.uniqueId] = Bukkit.getScheduler().scheduleSyncRepeatingTask(DVHSiegeCore.instance!!, {
+            if(!DVHSiegeCore.masterConfig.distressNotify)return@scheduleSyncRepeatingTask
             val counter = COUNTER.getOrDefault(event.player.uniqueId, 0)
             val boldPrefix = if(counter % 2  == 0) "&l" else ""
             TextUtil.sendActionBar(event.player,

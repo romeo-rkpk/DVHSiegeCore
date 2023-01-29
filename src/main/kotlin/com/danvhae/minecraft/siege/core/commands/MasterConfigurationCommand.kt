@@ -44,7 +44,7 @@ class MasterConfigurationCommand : CommandExecutor {
                 }
                 sender.sendMessage("설정 엊보를 불러왔습니다")
             }
-            "wildWorld", "period", "sirius", "meetingRoom", "slaveStore" ->{
+            "wildWorld", "period", "sirius", "meetingRoom", "slaveStore", "distressNotify" ->{
                 if(args.size == 2){
                     when(args[0]){
                         "wildWorld" -> config.wildWorldName = args[1]
@@ -107,6 +107,14 @@ class MasterConfigurationCommand : CommandExecutor {
                             else
                                 config.sirius = bool
                         }
+
+                        "distressNotify" ->
+                            args[1].toBooleanStrictOrNull().let{bool->
+                                if(bool == null)
+                                    sender.sendMessage("올바르지 않은 값입니다")
+                                else
+                                    config.distressNotify = bool
+                            }
                     }
                 }
 
@@ -116,6 +124,7 @@ class MasterConfigurationCommand : CommandExecutor {
                     "sirius" -> Pair("시리우스 활성화 여부", config.sirius.toString())
                     "meetingRoom" -> Pair("회의실 위치", config.meetingRoom.toString())
                     "slaveStore" -> Pair("노예상점 위치", config.slaveStore.toString())
+                    "distressNotify" -> Pair("조난 통보",  config.distressNotify.toString())
                     else -> null
                 }?.let { (key, value) ->
                     sender.sendMessage("$key : $value")
